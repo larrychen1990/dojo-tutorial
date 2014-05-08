@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Function</title>
+<script type="text/javascript">
+	//constructor
+// 	var fun1=new Function("a","b","return a*b");
+// 	var fun2=new Function("a,b","return a*b");
+// 	var fun3=function(a,b){
+// 		return a*b;
+// 	}
+// 	function multiple(a,b){
+// 		return a*b;
+// 	}
+// 	console.debug("fun1(3,4): "+fun1(3,4));
+// 	console.debug("fun2(3,4): "+fun2(3,4));
+// 	console.debug("fun3(3,4): "+fun3(3,4));
+// 	console.debug("multiple(3,4): "+multiple(3,4));
+	
+	//Properties and Methods of Function
+	//Function prototype object,inherit from Function.prototype
+	// Properties
+// 	console.debug("fun1.arguments: "+fun1.arguments);
+// 	console.debug("fun1.caller: "+fun1.caller);
+// 	console.debug("fun1.length: "+fun1.length);
+// 	console.debug("multiple.name: "+multiple.name);
+// 	console.debug("multiple.displayName: "+multiple.displayName);
+// 	console.debug("multiple.prototype.constructor: "+multiple.prototype.constructor);
+	
+//methods
+	//apply()
+	//fun.apply(thisArg,[argsArray])
+// 	Function.prototype.construct=function(aArgs){
+// 		var fConstructor=this,
+// 			fNewConstr=function(){
+// 				fConstructor.apply(this,aArgs);
+// 			};
+// 		fNewConstr.prototype=fConstructor.prototype;
+// 		return new fNewConstr();
+// 	};
+	
+// 	function MyConstructor(){
+// 		for ( var nProp = 0; nProp < arguments.length; nProp++) {//must arguments here
+// 			this["property"+nProp]=arguments[nProp];
+// 		}
+// 	}
+// 	var myArray=[4,"Hello World",false];
+// 	var myInstance=MyConstructor.construct(myArray);//construct a function and pass the arguements
+	
+// 	console.log(myInstance.property1);
+// 	console.log(myInstance instanceof MyConstructor);
+// 	console.log(myInstance.constructor);
+	
+	
+// 	var numbers=[5,6,2,3,7];
+	
+// 	var max=Math.max.apply(null,numbers);
+// 	var min=Math.min.apply(null,numbers);
+	
+// 	max=-Infinity,min=+Infinity;
+	
+// 	for ( var i = 0; i < numbers.length; i++) {
+// 		if (numbers[i]>max) {
+// 			max=numbers[i];
+// 		}
+// 		if (numbers[i]<min) {
+// 			min=numbers[i];
+// 		}
+// 	}
+	
+// 	console.log(max);
+// 	console.log(min);
+// 	console.log(Math.min(3,6,7,5,1));
+	
+	
+// 	function minOfArray(arr){
+// 		var min=Infinity;
+// 		var QUANTUM=32768;
+		
+// 		for ( var i = 0,len=arr.length; i < len; i+=QUANTUM) {
+// 			var submin=Math.min.apply(null,arr.slice(i,Math.min(i+QUANTUM,len)));
+// 			min=Math.min(submin,min);
+// 		}
+// 		return min;
+// 	}
+	
+// 	var min=minOfArray([5,6,2,3,7]);
+// 	console.log(min);
+	
+	//bind()
+	
+// 	this.x=9;
+// 	var module={
+// 			x:81,
+// 			getX:function(){return this.x;}
+// 	};
+	
+// 	module.getX();
+	
+// 	var getX=module.getX;
+// 	console.log(getX());
+// 	getX();					//9
+	
+// 	var boundGetX=getX.bind(module);//bind module to this of the getX function
+// 	boundGetX();
+// 	console.log(boundGetX());//81
+	
+	
+// 	function list(){
+// 		return Array.prototype.slice.call(arguments);
+// 	}
+// 	var list1=list(1,2,3);
+	
+// 	var leadingThirtysevenList=list.bind(undefined,37);
+	
+// 	var list2=leadingThirtysevenList();
+// 	var list3=leadingThirtysevenList(1,2,3);
+	
+// 	console.log(list1);		//[1, 2, 3]
+// 	console.log(list2);		//[37]
+// 	console.log(list3);		//[37, 1, 2, 3]
+	
+	
+// 	function LateBloomer(){
+// 		this.petalCount=Math.ceil(Math.random()*12)+1;
+// 	}
+	
+// 	LateBloomer.prototype.bloom=function(){
+// 		window.setTimeout(this.declare.bind(this),1000);
+// 	};
+	
+// 	LateBloomer.prototype.declare=function(){
+// 		console.log("I am a beautiful flower with "+this.petalCount+" petals!");
+// 	};
+// 	LateBloomer.prototype.bloom();
+
+
+// 	function Point(x,y){
+// 		this.x=x;
+// 		this.y=y;
+// 	}
+// 	Point.prototype.toString=function(){
+// 		return this.x+","+this.y;
+// 	};
+// 	var p=new Point(1,2);
+// 	console.log(p.toString());
+	
+// 	var emptyObj={};
+// 	var YAxisPoint=Point.bind(emptyObj,0);
+// 	var YAxisPoint=Point.bind(null,0);
+	
+// 	var axisPoint=new YAxisPoint(5);
+// 	console.log(axisPoint.toString());
+	
+// 	console.log(axisPoint instanceof Point);
+// 	console.log(axisPoint instanceof YAxisPoint);
+// 	console.log(new Point(17,42) instanceof YAxisPoint);
+	
+// 	console.log(new YAxisPoint(13));
+// 	console.log(emptyObj.x+","+emptyObj.y);
+
+
+//isGenerator ACMAScipt5-
+	function f(){	}
+	function g(){
+		yield 42;
+	}
+	console.log("f.isGenerator()="+f.isGenerator());
+	console.log("g.isGenerator()="+g.isGenerator());
+	
+</script>
+</head>
+<body>
+	function
+</body>
+</html>

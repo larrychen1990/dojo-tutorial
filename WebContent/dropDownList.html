@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html dir="ltr">
+   <head>
+      <style type="text/css">
+         body, html { font-family:helvetica,arial,sans-serif; font-size:90%; }
+      </style>
+      <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js" djConfig="parseOnLoad: true"></script>
+      <script>
+         dojo.require("dijit.form.Select");
+         dojo.require("dijit.form.TextBox");
+         dojo.ready(function() {
+         add(dojo.byId("x"));
+         });
+         
+         var num=1;
+         function add(sDiv){
+         var s = new dijit.form.Select({
+                 name: 'select'+num++,
+                 options: [{
+                     label: 'TN',
+                     value: 'Tennessee'
+                 },
+                 {
+                     label: 'VA',
+                     value: 'Virginia',
+                     selected: true
+                 },
+                 {
+                     label: 'WA',
+                     value: 'Washington'
+                 },
+                 {
+                     label: 'FL',
+                     value: 'Florida'
+                 },
+                 {
+                     label: 'CA',
+                     value: 'California'
+                 }]
+             });
+         s.placeAt(sDiv);
+         var b = dijit.form.TextBox();
+         b.placeAt(sDiv);
+         }
+         
+         function newOne(){
+         var y = document.createElement("div");
+         y.setAttribute("id", "x" + num);
+         x.appendChild(y);
+         add(y);
+         }
+      </script>
+      <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css" />
+   </head>
+   <body class="claro">
+      <div id="x"></div>
+      <button onclick="newOne()">add</button>
+   </body>
+</html>

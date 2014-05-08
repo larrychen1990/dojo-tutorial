@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Dijit Themes Buttons and Textboxes</title>
+<link rel="stylesheet" href="dijit/themes/claro/claro.css"> 
+<script src="dojo/dojo.js"
+		data-dojo-config="async:true"></script>
+</head>
+<body class="claro">
+
+	<h1 id="greeting">Hello</h1>
+	
+	<!-- Button -->
+	 <!-- declarative-->
+	<!-- 
+	<button id="btn" data-dojo-type="dijit/form/Button"
+		data-dojo-props="onClick:function(){alert('First button was clicked!');}">Click me!</button>
+	<script>
+		require([
+		  "dijit/form/Button",
+		  "dojo/parser",
+		  "dojo/domReady!"
+		  ]);
+	</script>
+  <!-- programmatic -->
+<!-- 
+	<button id="btn">Click me!</button>
+	<script>
+		require([
+		  "dijit/form/Button",
+		  "dojo/domReady!"
+		  ],function(Button){
+			var button=new Button({
+				label:"Click me!",
+				onClick:function(){alert("First button was clicked!");}
+			},"btn");
+			button.startup();
+		});
+	</script>
+ -->
+ <!-- declarative-->
+ <!-- \
+	 <button 
+	 	id="btn2" 
+	 	data-dojo-type="dijit/form/Button"
+	 	data-dojo-props="
+	 	iconClass:'dijitIconNewTask',
+	 	showLabel:false,
+	 	onClick:function(){alert('Second button was clicked!');}">
+	 	Click me!
+	 </button>
+	 <script>
+	 	require([
+	 		"dojo/parser",
+	 		"dijit/form/Button",
+	 		"dojo/domReady!"
+	 	]);
+	 </script>
+  -->
+  <!-- programmatic -->
+  <!-- 
+	 <button id="btn2">Click me!</button>
+	 <script>
+	 	require([
+	 		"dijit/form/Button",
+	 		"dojo/domReady!"
+	 	],function(Button){
+	 		var button2=new Button({
+	 			iconClass:"dijitIconNewTask",
+	 			showLabel:true,
+	 			label:"Click me!",
+	 			title:"click button",
+	 			onClick:function(){alert("Second button was clicked!");}
+	 		},"btn2");
+	 		button2.startup();
+	 	});
+	 </script>
+   -->
+   
+   
+   
+   <!-- ToggleButton  DropDownButton ComboButton -->
+ <!-- declarative-->
+ <!-- 
+   <button 
+   		id="toggle"
+   		data-dojo-type="dijit/form/ToggleButton"
+   		data-dojo-props="iconClass:'dijitCheckBoxIcon',checked:true">
+   		Toggle
+   	</button>
+   	
+   	<div 
+   		id="combo"
+   		data-dojo-type="dijit/form/ComboButton"
+   		data-dojo-props="
+   			optoinsTitle:'Save Options',
+   			iconClass:'dijitIconFile',
+   			onClick:function(){alert('Clicked ComboButton!');}
+   		"
+   	>
+   		<span>Combo</span>
+   		<div 
+   			id="saveMenu"
+   			data-dojo-type="dijit/menu">
+   			<div 
+   				data-dojo-type="dijit/MenuItem"
+   				data-dojo-props="
+   					iconClass:'dijitEditorIcon dijitEditorIconSave',
+   					onClick:function(){alert('Saved!');}
+   				">
+   				Save
+   			</div>
+   			<div 
+   				data-dojo-type="dijit/MenuItem"
+   				data-dojo-props="
+   					onClick:function(){alert('Save as...');}
+   				">
+   				Save As
+   			</div>	
+   		</div>
+   	</div>	
+   	<div 
+   		id="dropDown"
+   		data-dojo-type="dijit/form/DropDownButton"
+   		data-dojo-props="iconClass:'dijitIconApplication'">
+   		<span>DropDown</span>
+   		<div data-dojo-type="dijit/TooltipDialog">
+   			This is a TooltipDialog. You could even put a form here!	
+   		</div>
+    </div>
+    <script>
+    	require([
+    	  "dijit/form/ToggleButton",
+    	  "dijit/form/ComboButton",
+    	  "dijit/Menu",
+    	  "dijit/MenuItem",
+    	  "dijit/form/DropDownButton",
+    	  "dijit/TooltipDialog",
+    	  "dijit/parser"
+    	  ]);
+    </script>
+  -->
+   
+  <!-- programmatic -->
+  <!-- 
+   -->
+   <button id="toggle"></button>
+   <button id="combo"></button>
+   <button id="dropDown"></button>
+   
+   <script>
+   		require([
+   		 	"dijit/form/ToggleButton",
+   		 	"dijit/form/ComboButton",
+   		 	"dijit/Menu",
+   		 	"dijit/MenuItem",
+   		 	"dijit/form/DropDownButton",
+   		 	"dijit/TooltipDialog"
+   		 ],function(ToggleButton,ComboButton,Menu,MenuItem,DropDownButton,TooltipDialog){
+   			var toggleButton=new ToggleButton({
+   				iconClass:"dijitCheckBoxIcon",
+   				label:"Toggle",
+   				checked:true,
+   				onClick:function(){
+   					if (this.checked)
+						alert("ON");
+					else
+						alert("OFF");
+   				}
+   			},"toggle");
+   			toggleButton.startup();
+   			
+   			var menu=new Menu({
+   				id:"saveMenu"
+   			});
+   			var menuItem1=new MenuItem({
+   				label:"Save",
+   				iconClass:"dijitEditorIcon dijitEditorIconSave",
+   				onClick:function(){alert("Save");}
+   			});
+   			var menuItem2=new MenuItem({
+   				label:"Save As",
+   				onClick:function(){alert("Save As...");}
+   			});
+   			menu.addChild(menuItem1);
+   			menu.addChild(menuItem2);
+   			
+   			var comboButton=new ComboButton({
+   				optionsTitle:"Save Options",
+   				iconClass:"dijitIconFile",
+   				label:"Combo",
+   				dropDown:menu,
+   				onClick:function(){alert("Clicked ComboButton");}
+   			},"combo");
+   			comboButton.startup();
+   			menu.startup();
+   			
+   			var tooltip=new TooltipDialog({
+   				content:"This is a TooltipDialog. You should even put a form here!"
+   			});
+   			
+   			var dropDownButton=new DropDownButton({
+   				iconClass:"dijitIconApplication",
+   				label:"DropDown",
+   				dropDown:tooltip
+   			},"dropDown");
+   			dropDownButton.startup();
+   			tooltip.startup();
+   			
+   			
+   		});
+   </script>
+   
+   
+   
+ 
+ 
+</body>
+</html>

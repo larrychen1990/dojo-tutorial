@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>dojoConfig</title>
+<link rel="stylesheet" href="dijit/themes/claro/claro.css"> 
+
+
+<!-- set Dojo configuration, load Dojo -->
+<script>
+//    var  dojoConfig= {
+//         async: true,
+//         has: {
+//             "dojo-firebug": true,
+//             "dojo-amd-factory-scan":true,
+//             "dojo-debug-messages": true
+//         },
+//         parseOnLoad: false,
+//         foo: "bar",
+//         baseUrl:"/DojoTutorial",
+//         waitSeconds:15
+//     };
+    
+//     //packages
+//    var  dojoConfig= {
+//         packages:[
+//         	"package1",          
+//         	"package2"          
+//         ],
+//         paths:{
+//         	package1:"js/package1",
+//         	package2:"js/package2"
+//         }
+        
+//     };
+    
+//  // ...is equivalent to:
+//     var dojoConfig = {
+//         packages: [
+//             { name: "package1", location: "js/package1" },
+//             { name: "package2", location: "js/package2" }
+//         ]
+//     };
+</script>
+
+<!-- <script src="dojo/dojo.js"></script> -->
+
+<!-- 
+<script src="dojo/dojo.js"
+        data-dojo-config="has:{'dojo-firebug': true}, parseOnLoad: false, foo: 'bar', async: 1">
+</script>
+ -->
+ <!-- 
+ <script>
+// Require the registry, parser, Dialog, and wait for domReady
+require([
+         "dijit/registry", 
+         "dojo/parser", 
+         "dojo/json",
+         "dojo/_base/config",
+         "dijit/Dialog", 
+         "dojo/domReady!"
+ ], function(registry, parser, JSON, config) {
+    // Explicitly parse the page
+    parser.parse();
+    // Find the dialog
+    var dialog = registry.byId("dialog");
+    // Set the content equal to what dojo.config is
+    dialog.set("content", "<pre>" + JSON.stringify(config, null, "\t") + "</pre>");
+    // Show the dialog
+    dialog.show();
+});
+</script>
+  -->
+</head>
+<body class="claro">
+<!-- and later in the page -->
+<!-- <div id="dialog" data-dojo-type="dijit.Dialog" data-dojo-props="title: 'dojoConfig / dojo/_base/config'"></div> -->
+
+<!-- Configure Dojo first -->
+<script>
+//     dojoConfig = {
+//         has: {
+//             "dojo-firebug": true,
+//             "dojo-debug-messages": true
+//         },
+//         // Don't attempt to parse the page for widgets
+//         parseOnLoad: false,
+//         packages: [
+//             // Any references to a "demo" resource should load modules locally, *not* from CDN
+//             {
+//                 name: "demo",
+//                 location: "/DojoTutorial/demo"
+//             }
+//         ],
+//         // Timeout after 10 seconds
+//         waitSeconds: 10,
+//         map: {
+//             // Instead of having to type "dojo/domReady!", we just want "ready!" instead
+//             "*": {
+//                 ready: "dojo/domReady"
+//             }
+//         },
+//         // Get "fresh" resources
+//         cacheBust: true
+//     };
+</script>
+ 
+<!-- Load Dojo, Dijit, and DojoX resources from Google CDN -->
+<!-- <script src="dojo/dojo.js"></script> -->
+ 
+<!-- Load a "demo" module -->
+ 
+<script>
+//     require(["demo/app", "dojo/parser", "ready!"], function(AuthoredDialog, parser) {
+//         // Parse the page
+//         parser.parse();
+ 
+//         // Do something with demo/AuthoredDialog...
+//     });
+</script>
+
+
+<!-- 
+<script>
+    var dojoConfig = {
+        has: {
+            "dojo-firebug": true,
+            "dojo-debug-messages": true
+        },
+        parseOnLoad: true,
+        // look for a locale=xx query string param, else default to 'en-us'
+        locale: location.search.match(/locale=([\w\-]+)/) ? RegExp.$1 : "en-us"
+    };
+</script>
+<script src="dojo/dojo.js"></script>
+<script>
+    require(["dojo/date/locale", "dijit/Dialog", "dojo/json", "dojo/_base/config",
+    "dojo/_base/window", "dojo/i18n", "dojo/domReady!"]
+    , function(locale, Dialog, JSON, config, win) {
+        var now = new Date();
+        var dialog = new Dialog({
+            id: "dialog",
+            // set a title on the dialog of today's date,
+            // using a localized date format
+            title: "Today: " + locale.format(now, {
+                    formatLength:"full",
+                    selector:"date"
+            })
+        }).placeAt(win.body());
+        dialog.startup();
+ 
+        dialog.set("content", "<pre>" + JSON.stringify(config, null, "\t") + "</pre>");
+        dialog.show();
+    });
+</script>
+ -->
+ 
+ 
+ <script>
+    dojoConfig = {
+        has: {
+            "dojo-firebug": true
+        },
+        app: {
+            userName: "Anonymous"
+        }
+    };
+</script>
+<script src="dojo/dojo.js"></script>
+<script>
+    require([
+             "dijit/Dialog",
+             "dijit/registry",
+             "dojo/parser", 
+             "dojo/_base/lang",
+    		 "dojo/json", 
+    		 "dojo/_base/config",
+    		 "dojo/io-query", 
+    		 "dojo/domReady!"
+	], function(Dialog, registry, parser, lang, JSON, config, ioQuery) {
+ 
+        // pull configuration from the query string
+        // and mix it into our app config
+        var queryParams = ioQuery.queryToObject(location.search.substring(1));
+        lang.mixin(config.app, queryParams);
+ 
+        // Create a dialog
+        var dialog = new Dialog({
+            title: "Welcome back " + config.app.userName,
+            content: "<pre>" + JSON.stringify(config, null, "\t") + "</pre>"
+        });
+ 
+        // Draw on the app config to put up a personalized message
+        dialog.show();
+ 
+    });
+</script>
+
+</body>
+</html>

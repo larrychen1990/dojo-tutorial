@@ -1,0 +1,108 @@
+/*
+	Styles for autoheight;
+	note that dgrid.css is imported earlier for these styles to override
+*/
+.dgrid-autoheight {
+	height: auto;
+}
+.dgrid-autoheight .dgrid-scroller {
+	position: relative;
+	overflow-y: hidden;
+}
+.dgrid-autoheight .dgrid-header-scroll {
+	display: none;
+}
+.dgrid-autoheight .dgrid-header {
+	right: 0;
+}
+
+.summary-row {
+	font-weight: bold;
+}
+
+.dgrid {
+	width: 500px;
+	margin: 1em;
+}
+
+.dgrid-cell {
+	width: 100px;
+}
+
+.field-name, .dgrid-column-set-0 {
+	width: 200px;
+}
+
+#gridColumnSet {
+	height: 15em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* @import url(../dojo/resources/dojo.css); */
+
+/* .dgrid { */
+/* 	margin: 2em; */
+/* } */
+
+/* form { */
+/* 	padding: 1em 2em; */
+/* } */
+
+
+
+/* @import url(../dojo/resources/dojo.css); */
+/* @import url(../dgrid/css/dgrid.css); */
+/* @import url(../dgrid/css/skins/claro.css); */
+
+/* .dgrid { */
+/* 	margin: 2em; */
+/* } */
+
+/* .half { */
+/* 	/* used for displaying grids side-by-side */ */
+/* 	display: inline-block; */
+/* 	margin-left: 2.5%; */
+/* 	margin-right: 2.5%; */
+/* 	width: 44%; */
+/* 	vertical-align: top; */
+/* } */
+
+/* form { */
+/* 	padding: 1em 2em; */
+/* } */
+
+/* .grid { */
+/* 	width: 700px; */
+/* 	margin: 10px; */
+/* } */
+
+/* /* Default all cells to 80px width */ */
+/* .grid .dgrid-cell { */
+/* 	width: 80px; */
+/* } */
+
+/* /* Make the columns for first/last name wider */ */
+/* .grid .field-first, */
+/* .grid .field-last { */
+/* 	width: 100px; */
+/* } */
+
+/* /* */
+/* 	For the columnset example, make each columnset occupy */
+/* 	half the total grid width. */
+/* */ */
+/* .grid .dgrid-column-set-cell { */
+/* 	width: 50%; */
+/* } */
+

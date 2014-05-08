@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Rendering Store Data at Once</title>
+	<link rel="stylesheet" href="../resources/examples.css"> 
+	<link rel="stylesheet" href="../dgrid/css/skins/claro.css">
+	<link rel="stylesheet" href="../dgrid/css/dgrid.css">
+	<style>
+		/*
+			Styles for autoheight;
+			note that dgrid.css is imported earlier for these styles to override
+		*/
+		.dgrid-autoheight {
+			height: auto;
+		}
+		.dgrid-autoheight .dgrid-scroller {
+			position: relative;
+			overflow-y: hidden;
+		}
+		.dgrid-autoheight .dgrid-header-scroll {
+			display: none;
+		}
+		.dgrid-autoheight .dgrid-header {
+			right: 0;
+		}
+		
+		/* Custom visual styles for the grid */
+		
+		.dgrid, .dgrid-cell {
+			border: none;
+		}
+		
+		.dgrid-cell-padding {
+			padding: 1em;
+		}
+		
+		.dgrid-header .dgrid-cell {
+			font-weight: bold;
+		}
+		
+		.dgrid-row-odd {
+			background-color: #eef7ff;
+		}
+	</style>
+</head>
+<body class="claro">
+<h1>Demo: Single-Query Mixin</h1>
+	<form id="queryForm">
+		<label for="lastField">Last name contains:</label>
+		<input id="lastField" name="last">
+		<button type="submit">Filter</button>
+		<button type="reset">Reset</button>
+	</form>
+	<div id="grid"></div>
+	
+	<script>
+		var dojoConfig;
+		(function(){
+			var baseUrl = location.pathname.replace(/\/[^/]+$/, "/"),
+				dgridUrl = baseUrl + "../";
+			dojoConfig = {
+				async: 1,
+				cacheBust: "1.9.3-0.3.14",
+				// Load dgrid and its dependencies from a local copy.
+				// If we were loading everything locally, this would not
+				// be necessary, since Dojo would automatically pick up
+				// dgrid, xstyle, and put-selector as siblings of the dojo folder.
+				packages: [
+					{ name: "dgrid", location: dgridUrl + "dgrid" },
+					{ name: "xstyle", location: dgridUrl + "xstyle" },
+					{ name: "put-selector", location: dgridUrl + "put-selector" },
+					{ name: "my", location: dgridUrl + "my" }
+				]
+			};
+		}());
+	</script>
+	<script src="../dojo/dojo.js"></script>
+<!-- 	Automatically Adjusting Grid Height -->
+<!-- 	adding the dgrid-autoheight class to an instance: -->
+	<script>
+		require([
+			"dojo/_base/declare",
+			"dojo/dom",
+			"dojo/on",
+			"dojo/request",
+			"dojo/store/Memory",
+			"dgrid/Grid",
+			"my/SingleQuery"
+		], function (declare, dom, on, request, Memory, Grid, SingleQuery) {
+			request("../workingWithData/hof-batting.json", {
+				handleAs: "json"
+			}).then(function (response) {
+				// Once the response is received, build an in-memory store with the data
+				var store = new Memory({ data: response });
+				
+				// Create an instance of OnDemandGrid referencing the store
+				var grid = window.grid = new (declare([Grid, SingleQuery]))({
+					className: "dgrid-autoheight",
+					store: store,
+					sort: "last", // Initialize sort on last name, ascending
+					columns: {
+						first: "First Name",
+						last: "Last Name",
+						totalG: "Games Played"
+					}
+				}, "grid");
+				
+				on(dom.byId("queryForm"), "submit", function(event) {
+					event.preventDefault();
+					grid.set("query", {
+						// Pass a RegExp to Memory's SimpleQueryEngine
+						// Note: this code does not go out of its way to escape
+						// characters that have special meaning in RegExps
+						last: new RegExp(this.elements.last.value, "i")
+					});
+				});
+				
+				on(dom.byId("queryForm"), "reset", function() {
+					// Reset the query when the form is reset
+					grid.set("query", {});
+				});
+			});
+		});
+	</script>
+	
+	
+<!-- 
+	<script>
+		require([
+			"dojo/_base/declare",
+			"dojo/dom",
+			"dojo/on",
+			"dojo/request",
+			"dojo/store/Memory",
+			"dgrid/Grid",
+			"my/SingleQuery"
+		], function (declare, dom, on, request, Memory, Grid, SingleQuery) {
+			request("../workingWithData/hof-batting.json", {
+				handleAs: "json"
+			}).then(function (response) {
+				// Once the response is received, build an in-memory store with the data
+				var store = new Memory({ data: response });
+				
+				// Create an instance of OnDemandGrid referencing the store
+				var grid = window.grid = new (declare([Grid, SingleQuery]))({
+					store: store,
+					sort: "last", // Initialize sort on last name, ascending
+					columns: {
+						first: "First Name",
+						last: "Last Name",
+						totalG: "Games Played"
+					}
+				}, "grid");
+				
+				on(dom.byId("queryForm"), "submit", function(event) {
+					event.preventDefault();
+					grid.set("query", {
+						// Pass a RegExp to Memory's SimpleQueryEngine
+						// Note: this code does not go out of its way to escape
+						// characters that have special meaning in RegExps
+						last: new RegExp(this.elements.last.value, "i")
+					});
+				});
+				
+				on(dom.byId("queryForm"), "reset", function() {
+					// Reset the query when the form is reset
+					grid.set("query", {});
+				});
+			});
+		});
+	</script>
+ -->
+
+</body>
+</html>

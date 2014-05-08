@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>DataGrid Events</title>
+<link rel="stylesheet" href="../style/style.css" media="screen">
+<link rel="stylesheet" href="../style/demo.css" media="screen">
+<link rel="stylesheet" href="../dijit/themes/claro/claro.css"> 
+<link rel="stylesheet" href="../dojox/grid/resources/Grid.css" />
+<link rel="stylesheet" href="../dojox/grid/resources/claroGrid.css" />
+</head>
+<body class="claro">
+		<script src="../dojo/dojo.js" data-dojo-config="isDebug: true, async: true"></script>
+		<!-- Editing data with the Grid -->
+		<!-- provide config via data attribute -->
+<h1>Demo: Editing in a Grid</h1>
+<input id="hs">
+		<p>The following grid shows the multiple editing capabilities built into dojox/grid/DataGrid.</p>
+		<div id="grid"></div>
+		<script>
+			require([
+				"dojox/grid/DataGrid",
+				"dojox/grid/cells",
+				"dojox/grid/cells/dijit",
+				"dojo/store/Memory",
+				"dojo/data/ObjectStore",
+				"dojo/date/locale",
+				"dojo/currency",
+				"dijit/form/DateTextBox",
+				"dijit/form/CurrencyTextBox",
+				"dijit/form/HorizontalSlider",
+				"dojo/domReady!"
+			], function(DataGrid, cells, cellsDijit, Memory, ObjectStore, locale, currency,
+				DateTextBox, CurrencyTextBox, HorizontalSlider){
+				var grid;
+				function formatCurrency(inDatum){
+					return isNaN(inDatum) ? '...' : currency.format(inDatum, this.constraint);
+				}
+				function formatDate(inDatum){
+					return locale.format(new Date(inDatum), this.constraint);
+				}
+				gridLayout = [{
+					defaultCell: { width: 8, editable: true, type: cells._Widget, styles: 'text-align: right;'  },
+					cells: [
+						{ name: 'Id', field: 'id', editable: false /* Can't edit ID's of dojo/data items */ },
+						{ 
+							name: 'Date', 
+							field: 'col8',
+							width: 10, 
+							editable: true,
+							widgetClass: DateTextBox,
+							formatter: formatDate,
+							constraint: {
+								formatLength: 'long', 
+								selector: "date"
+								}
+						},
+						{ 
+							name: 'Priority',
+							styles: 'text-align: center;', 
+							field: 'col1',
+							width: 10,
+							type: cells.ComboBox,
+							options: ["normal","note","important"]
+						},
+						{ 
+							name: 'Mark', 
+							field: 'col2',
+							width: 5, 
+							styles: 'text-align: center;',
+							type: cells.CheckBox
+						},
+						{ 
+							name: 'Status',
+							field: 'col3',
+							styles: 'text-align: center;',
+							type: cells.Select,
+							options: ["new", "read", "replied"] 
+						},
+						{ name: 'Message', field: 'col4', styles: '', width: 10 },
+						{ 
+							name: 'Amount', 
+							field: 'col6',
+							formatter: formatCurrency,
+							constraint: {currency: 'EUR'},
+							widgetClass: CurrencyTextBox 
+						},
+						{ 
+							name: 'Amount',
+							field: 'col5',
+							formatter: formatCurrency, 
+							constraint: {currency: 'EUR'},
+							widgetClass: HorizontalSlider,
+							width: 10
+						}
+					]
+				}];
+
+				var data = [
+					{ id: 0, col1: "normal", col2: false, col3: "new", col4: 'But are not followed by two hexadecimal', col5: 29.91, col6: 10, col7: false, col8: new Date() },
+					{ id: 1, col1: "important", col2: false, col3: "new", col4: 'Because a % sign always indicates', col5: 9.33, col6: -5, col7: false, col8: new Date() },
+					{ id: 2, col1: "important", col2: false, col3: "read", col4: 'Signs can be selectively', col5: 19.34, col6: 0, col7: true, col8: new Date() },
+					{ id: 3, col1: "note", col2: false, col3: "read", col4: 'However the reserved characters', col5: 15.63, col6: 0, col7: true, col8: new Date() },
+					{ id: 4, col1: "normal", col2: false, col3: "replied", col4: 'It is therefore necessary', col5: 24.22, col6: 5.50, col7: true, col8: new Date() },
+					{ id: 5, col1: "important", col2: false, col3: "replied", col4: 'To problems of corruption by', col5: 9.12, col6: -3, col7: true, col8: new Date() },
+					{ id: 6, col1: "note", col2: false, col3: "replied", col4: 'Which would simply be awkward in', col5: 12.15, col6: -4, col7: false, col8: new Date() }
+				];
+
+				var objectStore = new Memory({data:data});
+
+				// global var "test_store"
+				test_store = new ObjectStore({objectStore: objectStore});
+
+				//	create the grid.
+				grid = new DataGrid({
+					store: test_store,
+					structure: gridLayout,
+					escapeHTMLInData: false,
+					"class": "grid"
+				}, "grid");
+				grid.startup();
+				
+				var hs=new HorizontalSlider({
+					name:"hs",
+					showButtons:true,
+					hovering:false,
+					maximum:10
+				},"hs");
+				hs.startup();
+
+			});
+
+		</script>
+
+
+
+
+
+<!-- 	Row selectors	 -->
+<!--provide config via data attribute -->
+<!-- 
+<h1>Demo: Selections in a Grid</h1>
+		<p>The following grids demonstrate how selections work in a dojox/grid/DataGrid.</p>
+		<h2>Grid with <code>rowSelector</code></h2>
+		<p>
+			In the following Grid, no special selector view is used, but
+			<code>rowSelector</code> is specified in the arguments to the constructor.
+		</p>
+		<p>
+			The row selector behaves according to the rules of the grid's
+			<code>selectionMode</code>.
+		</p>
+		<div id="grid"></div>
+		<div id="results" class="results"></div>
+		<h2>Grid with <code>dojox/grid/_CheckBoxSelector</code></h2>
+		<p>
+			In the following Grid, the leftmost column is actually a separate view of type
+			<code>dojox/grid/_CheckBoxSelector</code>.
+		</p>
+		<p>
+			Notice how using the checkbox selectors follows its own behavior&mdash;in
+			this case, although the Grid is in <code>extended</code> selection mode,
+			which is still in effect when selecting rows via other data cells,
+			clicking on the checkboxes does not follow that behavior.
+			(In fact, it's closer to the behavior of the <code>multiple</code>
+			selection mode.)
+		</p>
+		<div id="grid2"></div>
+		<div id="results2" class="results"></div>
+		<script>
+			require([
+				"dojox/grid/DataGrid",
+				"dojox/grid/cells",
+				"dojo/store/Memory",
+				"dojo/data/ObjectStore",
+				"dojo/_base/array",
+				"dojo/_base/lang",
+				"dojox/grid/_CheckBoxSelector",
+				"dijit/form/Select",
+				"dojo/domReady!"
+			], function(DataGrid, gridCells, Memory, ObjectStore, baseArray, lang, _CheckBoxSelector,Select){
+				var cells = [
+					[
+						new gridCells.RowIndex({ width: "10%" }),
+						{ name: "Column 1", field: "col1", width: "30%" },
+						{ name: "Column 2", field: "col2", width: "30%" },
+						{ name: "Column 3", field: "col3", width: "30%" }
+					],[
+						{ name: "Column 4", field: "col4", colSpan: 4,styles:"text-align:center" }
+					]
+				];
+
+				gridLayout = [{
+					// First, our view using the _CheckBoxSelector custom type
+						type: "dojox.grid._CheckBoxSelector"
+					}, 
+					cells
+				];
+
+				var data = [
+					{ id: 0, col1: "normal", col2: false, col3: "new", col4: "But are not followed by two hexadecimal"},
+					{ id: 1, col1: "important", col2: false, col3: "new", col4: "Because a % sign always indicates"},
+					{ id: 2, col1: "important", col2: false, col3: "read", col4: "Signs can be selectively"},
+					{ id: 3, col1: "note", col2: false, col3: "read", col4: "However the reserved characters"},
+					{ id: 4, col1: "normal", col2: false, col3: "replied", col4: "It is therefore necessary"},
+					{ id: 5, col1: "important", col2: false, col3: "replied", col4: "To problems of corruption by"},
+					{ id: 6, col1: "note", col2: false, col3: "replied", col4: "Which would simply be awkward in"}
+				];
+
+				var objectStore = new Memory({data:data});
+
+				var test_store = new ObjectStore({objectStore: objectStore});
+
+				// create the grids.
+				var grid = new DataGrid({
+					store: test_store,
+					structure: cells,
+// 					selectionMode:"single",
+					rowSelector: "20px",
+					"class": "grid"
+				}, "grid");
+				grid.startup();
+
+				var grid2 = new DataGrid({
+					store: test_store,
+					structure: gridLayout,
+					"class": "grid"
+				}, "grid2");
+				grid2.startup();
+				
+// 				var select=new Select({
+// 					id:"select",
+// 					name:"select",
+// 					options:[
+// 					         {
+// 					        	 label:"none",
+// 					        	 value:"none"
+// 					         },
+// 					         {
+// 					        	 label:"single",
+// 					        	 value:"single"
+// 					         },
+// 					         {
+// 					        	 label:"multiple",
+// 					        	 value:"multiple"
+// 					         },
+// 					         {
+// 					        	 label:"extended(default)",
+// 					        	 value:"extended"
+// 					         }
+// 					        ]
+// 				},"select");
+// 				select.on("change",function(value){
+// 					console.log(value);
+// 					grid.set("selectionMode",value);
+// 					console.log(grid.get("selectionMode"));
+// 					dijit.byId("grid").selectionMode=value;
+// 				});
+// 				select.startup();
+
+				function reportSelection(node){
+					var items = this.selection.getSelected();
+					var tmp = baseArray.map(items, function(item){
+						return item.id;
+					}, this);
+					var msg = "You have selected row" + ((tmp.length > 1) ? "s ": " ");
+					node.innerHTML = msg + tmp.join(", ");
+				}
+				
+// 				onSelected, onDeselected, and onSelectionChanged.
+// 				hitch a function to a explicity scope
+				grid.on("SelectionChanged",
+					lang.hitch(grid, reportSelection, document.getElementById("results")), true);
+				grid2.on("SelectionChanged",
+					lang.hitch(grid2, reportSelection, document.getElementById("results2")), true);
+
+			});
+		</script>
+ -->
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!--provide config via data attribute -->
+		<!-- 
+	<h1>Demo: DataGrid events</h1>
+		<p>
+		The following shows how to connect to and handle the <em>onRowClick</em> event in a DataGrid.
+		</p>
+		<div id="grid"></div>
+		<div id="results" class="results"></div>
+		<script>
+			require([
+			        "dojo/request",
+					"dojo/store/Memory",
+					"dojo/data/ObjectStore",
+					"dojox/grid/DataGrid",
+					"dojox/math/round",
+					"dojo/domReady!"
+			],function(request, Memory, ObjectStore, DataGrid, mathRound){
+
+// 					Row					HeaderCell						Cell
+// 				onRowClick			onHeaderCellClick				onCellClick
+// 				onRowContextMenu	onHeaderCellContextMenu			onCellContextMenu
+// 				onRowDblClick		onHeaderCellDblClick			onCellDblClick
+// 				onRowFocus			onHeaderCellFocus				onCellFocus
+// 				onRowMouseDown		onHeaderCellMouseDown			onCellMouseDown
+// 				onRowMouseOut		onHeaderCellMouseOut			onCellMouseOut
+// 				onRowMouseOver		onHeaderCellMouseOver			onCellMouseOver
+				
+				
+				
+				request("hof-batting.json", {handleAs: "json" }).then(function(data){
+					var store = new Memory({ data: data, idProperty: "id" });
+
+	                    // global var "test_store"
+        	            test_store = new ObjectStore({objectStore: store});
+
+					var grid = new DataGrid({
+						"class": "grid",
+						store: test_store,
+						query: { id: "*" },
+						structure: [
+							{
+								name: "Name", fields: ["first", "last"], width: "30%",
+								formatter: function(fields, rowIndex, cell){
+									var first = fields[0],
+										last = fields[1];
+
+									return last + ", " + first;
+								}
+							},
+							{
+								name: "G", field: "totalG", width: "10%",
+								formatter: function(games, rowIndex, cell){
+									return games + " <em>games</em>";
+								}
+							},
+							{ name: "AB", field: "totalAB", width: "10%" },
+							{ name: "R", field: "totalR", width: "8%" },
+							{ name: "H", field: "totalH", width: "9%" },
+							{ name: "RBI", field: "totalRBI", width: "8%" },
+							{
+								name: "Batting Average", field: "_item", width: "12%",
+								formatter: function(item, rowIndex, cell){
+									var rowData = grid.getItem(rowIndex);
+									return mathRound((rowData.totalH / rowData.totalAB), 3);
+								}
+							},
+							{
+								name: "Slugging %", width: "13%",
+								get: function(rowIndex, item){
+									if(!item){
+										return;
+									}	
+									var rowData = grid.getItem(rowIndex),
+										hits = rowData.totalH,
+										doubles = rowData.total2B,
+										triples = rowData.total3B,
+										homeruns = rowData.totalHR,
+										total_bases = hits + doubles + (triples * 2) + (homeruns * 3),
+										at_bats = rowData.totalAB;
+
+									return total_bases / at_bats;
+								},
+								formatter: function(slugging){
+									return mathRound(slugging, 3);
+								}
+							}
+						]
+					}, "grid");
+					grid.startup();
+
+					grid.on("RowClick", function(evt){
+						var idx = evt.rowIndex,
+							rowData = grid.getItem(idx);
+							document.getElementById("results").innerHTML =
+							"You have clicked on " + rowData.last + ", " + rowData.first + ".";
+					}, true);
+
+				});
+			});
+		</script>
+		 -->
+</body>
+</html>

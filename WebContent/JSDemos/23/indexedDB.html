@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+/*
+ 
+ 
+ */
+	var indexedDB=window.indexedDB||window.msIndexedDB||window.mozIndexedDB||window.webkitIndexedDB;
+	var request,database;
+	request=indexedDB.open("larry");
+	request.onerror=function(event){
+		alert("something bad happened while trying to open :"+event.target.errorCode);
+	};
+	request.onsuccess=function(event){
+		database=event.target.result;
+	};
+
+	if (database.version!="1.0") {
+		request=database.setVersion("1.0");
+		request.onerror=function(event){
+			alert("something bad happened while trying to open :"+event.target.errorCode);
+		};
+		request.onsuccess=function(event){
+			alert("database name:"+database.name+" Vesion:"+database.version);
+		};
+	}else{
+			alert("database already initialized name:"+database.name+" Vesion:"+database.version);
+	}
+</script>
+</head>
+<body>
+
+</body>
+</html>

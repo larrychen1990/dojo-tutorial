@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>MVC</title>
+<script src="dojo/dojo.js" 
+		data-dojo-config="async:true"></script>
+<script>
+require([
+         "dojo/store/JsonRest", 
+         "dojo/store/Memory",
+         "dojo/store/Cache", 
+         "dojo/store/Observable"
+        ],function(JsonRest, Memory, Cache, Observable){
+    masterStore = new JsonRest({
+        target: "/Inventory/"
+    });
+    cacheStore = new Memory({});
+    inventoryStore = new Cache(masterStore, cacheStore);
+    
+    
+    results = inventoryStore.query("some-query");
+    viewResults(results);
+     
+    // pass the results on to the view
+    function viewResults(results){
+        var container = dom.byId("container");
+     
+        // results object provides a forEach method for iteration
+        results.forEach(addRow);
+     
+        function addRow(item){
+            var row = domConstruct.create("div",{
+                innerHTML: item.name + " quantity: " + item.quantity
+            }, container);
+        }
+    }
+});
+</script> 
+</head>
+<body>
+
+
+</body>
+</html>

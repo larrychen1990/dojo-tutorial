@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Tutorial: Hello dgrid!</title>
+<!-- 	<link rel="stylesheet" href="../resources/examples.css">  -->
+	<style>
+		/* Add some styles for noDataMessage and loadingMessage */
+/* 		.dgrid-no-data, */
+/* 		.dgrid-loading { */
+/* 			color: #aaa; */
+/* 			font-size: 3em; */
+/* 			padding: 3em; */
+/* 			text-align: center; */
+/* 		} */
+	</style>
+	<style>
+/* 		.message { */
+/* 			height: 1em; */
+/* 			margin: 1em 2em; */
+/* 			padding: 1em 2em; */
+/* 		} */
+/* 		.hidden { */
+/* 			visibility: hidden; */
+/* 		} */
+/* 		.error { */
+/* 			background-color: #fcc; */
+/* 			color: #900; */
+/* 		} */
+	</style>
+</head>
+<body class="claro">
+
+
+	<h1>Demo: Querying and Sorting Programmatically</h1>
+	<form id="queryForm">
+		<label for="lastField">Last name contains:</label>
+		<input id="lastField" name="last">
+		<button type="submit">Filter</button>
+		<button type="reset">Reset</button>
+		<button id="sortLastAsc">Sort by Last Name, Ascending</button>
+		<button id="sortGamesDesc">Sort by Games Played, Descending</button>
+	</form>
+	<div id="grid"></div>
+	
+	<script>
+		var dojoConfig;
+		(function(){
+			var baseUrl = location.pathname.replace(/\/[^/]+$/, "/../");
+			dojoConfig = {
+				async: 1,
+				// Load dgrid and its dependencies from a local copy.
+				// If we were loading everything locally, this would not
+				// be necessary, since Dojo would automatically pick up
+				// dgrid, xstyle, and put-selector as siblings of the dojo folder.
+				packages: [
+					{ name: "dgrid", location: baseUrl + "dgrid" },
+					{ name: "xstyle", location: baseUrl + "xstyle" },
+					{ name: "put-selector", location: baseUrl + "put-selector" }
+				]
+			};
+		}());
+	</script>
+	<script src="../dojo/dojo.js"></script>
+	<script>
+		require([
+			"dojo/dom",
+			"dojo/_base/declare",
+			"dojo/on",
+			"dojo/request",
+			"dojo/store/Memory",
+			"dgrid/OnDemandGrid",
+			"dgrid/extensions/DijitRegistry",
+			"dijit/dijit",
+			"dojo/domReady!"
+		], function (dom, declare, on, request, Memory, OnDemandGrid, DijitRegistry) {
+			request("../workingWithData/hof-batting.json", {
+				handleAs: "json"
+			}).then(function (response) {
+				// Once the response is received, build an in-memory store with the data
+				var store = new Memory({ data: response });
+				
+				// Create an instance of OnDemandGrid referencing the store
+				var grid = window.grid = new (declare([OnDemandGrid, DijitRegistry]))( {
+					store: store,
+					sort: "last", // Initialize sort on last name, ascending
+					columns: {
+						first: "First Name",
+						last: "Last Name",
+						totalG: "Games Played"
+					}
+				}, "grid");
+			
+				grid.startup();
+				
+				on(dom.byId("queryForm"), "submit", function(event) {
+					event.preventDefault();
+					grid.set("query", {
+						// Pass a RegExp to Memory's SimpleQueryEngine
+						// Note: this code does not go out of its way to escape
+						// characters that have special meaning in RegExps
+						last: new RegExp(this.elements.last.value, "i")
+					});
+				});
+				
+				on(dom.byId("queryForm"), "reset", function() {
+					// Reset the query when the form is reset
+					grid.set("query", {});
+				});
+				
+				on(dom.byId("sortLastAsc"), "click", function() {
+					// Simple case: pass a string representing field to be
+					// sorted in ascending order
+					grid.set("sort", "last");
+				});
+				
+				on(dom.byId("sortGamesDesc"), "click", function() {
+					// Advanced case: pass array of objects, following
+					// the same format as queryOptions.sort in stores
+					grid.set("sort", [{ attribute: "totalG", descending: true }]);
+				});
+			});
+		});
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- <h1>Demo: Reacting to Store Errors</h1> -->
+<!-- 	<p> -->
+<!-- 		Click the button below to switch the grid between a normal store, and -->
+<!-- 		one that throws an error when its <code>query</code> method is called. -->
+<!-- 	</p> -->
+<!-- 	<button id="switchStore">Switch store</button> -->
+<!-- 	<div id="message" class="message hidden"></div> -->
+<!-- 	<div id="grid"></div> -->
+
+
+<!-- <h1>Demo: Pagination</h1> -->
+<!-- 	<div class="grid" id="grid"></div> -->
+<!-- 	<h1>Demo: Loading and No Data Messages</h1> -->
+<!-- 	<div class="half"> -->
+<!-- 		<h2>Paging grid with async store</h2> -->
+<!-- 		<p> -->
+<!-- 			This grid references a store with an asynchronous query method that -->
+<!-- 			resolves on a delay, in order to demonstrate <code>loadingMessage</code>. -->
+<!-- 		</p> -->
+<!-- 	</div> -->
+<!-- 	<div class="half"> -->
+<!-- 		<h2>OnDemandGrid with empty store</h2> -->
+<!-- 		<p> -->
+<!-- 			This grid references a store with no items, in order to  demonstrate -->
+<!-- 			<code>noDataMessage</code>. -->
+<!-- 		</p> -->
+<!-- 	</div> -->
+	
+<!-- 	<div class="clear"> -->
+<!-- 		<div class="half" id="grid"></div> -->
+<!-- 		<div class="half" id="emptyGrid"></div> -->
+<!-- 	</div> -->
+<!-- 
+	<h1>Demo: OnDemandGrid Comparison</h1>
+	<p>
+		This page demonstrates tweaking common options provided by OnDemandGrid.
+		The grids on this page use an extension of <code>dojo/store/Memory</code>
+		which delays the response from the <code>query</code> method, in order to
+		better illustrate the differences.
+	</p>
+	<div class="half">
+		<h2>Grid with reduced farOffRemoval</h2>
+		<p>
+			This grid will remove rows once they are over 500 pixels away from the viewport.
+		</p>
+	</div>
+	<div class="half">
+		<h2>Grid with increased farOffRemoval and minRowsPerPage</h2>
+		<p>
+			This grid will never remove rows, as <code>farOffRemoval</code> has been
+			set to a value higher than the total height of the results.  It also has
+			<code>minRowsPerPage</code> set to 50 (double the default value), which
+			will result in more items queried (and rows rendered) at a time.
+		</p>
+	</div>
+	
+	<div class="clear">
+		<div class="half" id="grid1"></div>
+		<div class="half" id="grid2"></div>
+	</div>
+ -->
+	
+	
+	<!-- configure and load Dojo -->
+	<!-- 
+	<script>
+	var dojoConfig;
+	(function(){
+		var baseUrl = location.pathname.replace(/\/[^/]+$/, "/"),
+			dgridUrl = baseUrl + "../";
+		dojoConfig = {
+			async: 1,
+			cacheBust: "1.9.3-0.3.14",
+			// Load dgrid and its dependencies from a local copy.
+			// If we were loading everything locally, this would not
+			// be necessary, since Dojo would automatically pick up
+			// dgrid, xstyle, and put-selector as siblings of the dojo folder.
+			packages: [
+				{ name: "dgrid", location: dgridUrl + "dgrid" },
+				{ name: "xstyle", location: dgridUrl + "xstyle" },
+				{ name: "put-selector", location: dgridUrl + "put-selector" },
+				{ name: "my", location: dgridUrl + "my" }
+			]
+		};
+	}());
+	</script>
+	 -->
+	 <!-- 
+	 <script>
+		var dojoConfig;
+		(function(){
+			var baseUrl = location.pathname.replace(/\/[^/]+$/, "/../");
+			dojoConfig = {
+				async: 1,
+				cacheBust: "1.9.3-0.3.14",
+				// Load dgrid and its dependencies from a local copy.
+				// If we were loading everything locally, this would not
+				// be necessary, since Dojo would automatically pick up
+				// dgrid, xstyle, and put-selector as siblings of the dojo folder.
+				packages: [
+					{ name: "dgrid", location: baseUrl + "dgrid" },
+					{ name: "xstyle", location: baseUrl + "xstyle" },
+					{ name: "put-selector", location: baseUrl + "put-selector" },
+					{ name: "my", location: baseUrl + "my" }
+				]
+			};
+		}());
+	</script>
+	  -->
+	<!-- errors -->
+	<!-- 
+<script>
+		require([
+			"dojo/dom",
+			"dojo/on",
+			"dojo/request",
+			"dojo/store/Memory",
+			"dgrid/OnDemandGrid"
+		], function (dom, on, request, Memory, OnDemandGrid) {
+			request("../workingWithData/hof-batting.json", {
+				handleAs: "json"
+			}).then(function (response) {
+				// Once the response is received, build an in-memory store with the data
+				var store = new Memory({ data: response }),
+					errorStore = new Memory({
+						query: function() {
+							// Override query to throw an error, to demonstrate dgrid-error
+							throw new Error("An error occurred while retrieving data.");
+						}
+					});
+				
+				// Create an instance of OnDemandGrid referencing the store
+				var grid = new OnDemandGrid({
+					store: store,
+					columns: {
+						first: "First Name",
+						last: "Last Name",
+						totalG: "Games Played"
+					}
+				}, "grid");
+				
+				var messageNode = dom.byId("message"),
+					button = dom.byId("switchStore");
+				
+				grid.on("dgrid-error", function(event) {
+					// Display an error message above the grid when an error occurs.
+					messageNode.className = "message error";
+					messageNode.innerHTML = event.error.message;
+				});
+				
+				grid.on("dgrid-refresh-complete", function(event) {
+					// Hide any previous error message when a refresh completes successfully.
+					messageNode.className = "message hidden";
+					messageNode.innerHTML = "";
+				});
+				
+				on(button, "click", function() {
+					grid.set("store", grid.get("store") === store ? errorStore : store);
+				});
+				
+				grid.startup();
+			});
+		});
+	</script>
+	 -->
+
+
+
+	
+	
+	
+<!-- 	Loading and No Data Messages -->
+<!-- 
+<script>
+		require([
+			"dojo/_base/declare",
+			"dojo/request",
+			"dojo/store/Memory",
+			"my/DelayedMemory",
+			"dgrid/Grid",
+			"dgrid/OnDemandGrid",
+			"dgrid/extensions/Pagination"
+		], function (declare, request, Memory, DelayedMemory, Grid, OnDemandGrid, Pagination) {
+			request("../workingWithData/hof-batting.json", {
+				handleAs: "json"
+			}).then(function (response) {
+				// Once the response is received, build an in-memory store with the data
+				var store = new DelayedMemory({ data: response }),
+					emptyStore = new Memory({ data: [] }),
+					columns = {
+						first: "First Name",
+						last: "Last Name",
+						totalG: "Games Played"
+					};
+				
+				// Create a Grid instance using Pagination, referencing the store
+				var grid = new (declare([Grid, Pagination]))({
+					store: store,
+					columns: columns,
+					loadingMessage: "Loading data...",
+					noDataMessage: "No results found."
+				}, "grid");
+				grid.startup();
+				
+				var emptyGrid = new OnDemandGrid({
+					store: emptyStore,
+					columns: columns,
+					loadingMessage: "Loading data...",
+					noDataMessage: "No results found."
+				}, "emptyGrid");
+				emptyGrid.startup();
+			});
+		});
+	</script>
+ -->
+	
+	
+	
+	
+	
+	
+<!-- 	The Pagination Extension -->
+<!-- 
+	<script>
+		require([
+			"dojo/_base/declare",
+			"dojo/request",
+			"dojo/store/Memory",
+			"dgrid/Grid",
+			"dgrid/extensions/Pagination"
+		], function (declare, request, Memory, Grid, Pagination) {
+			request("../workingWithData/hof-batting.json", {
+				handleAs: "json"
+			}).then(function (response) {
+				// Once the response is received, build an in-memory store with the data
+				var store = new Memory({ data: response });
+				
+				// Create a Grid instance using Pagination, referencing the store
+				var grid = new (declare([Grid, Pagination]))({
+					store: store,
+					columns: {
+						first: "First Name",
+						last: "Last Name",
+						totalG: "Games Played"
+					}
+				}, "grid");
+			
+				grid.startup();
+			});
+			(function(){
+				console.log("llll");
+			}());
+		});
+	</script>
+ -->
+	
+	
+	
+	
+<!-- 	Virtual Scrolling with OnDemandGrid -->
+<!-- 
+	<script>
+		require([
+			"dojo/request",
+			"my/DelayedMemory",
+			"dgrid/OnDemandGrid"
+		], function (request, DelayedMemory, OnDemandGrid) {
+			request("../workingWithData/hof-batting.json", {
+				handleAs: "json"
+			}).then(function (response) {
+				// Once the response is received, build an in-memory store with the data
+				var store = new DelayedMemory({ data: response }),
+					columns = {
+						first: "First Name",
+						last: "Last Name",
+						totalG: "Games Played"
+					};
+				
+				//minRowsPerPage		default	25
+				//farOffRemoval			default	2000 pixels
+				//pagingDelay			default	15 milliseconds
+				// Create an instance of OnDemandGrid referencing the store
+				var grid1 = new OnDemandGrid({
+					store: store,
+					columns: columns,
+					farOffRemoval: 500
+				}, "grid1");
+				grid1.startup();
+				
+				var grid2 = new OnDemandGrid({
+					store: store,
+					columns: columns,
+					farOffRemoval: 10000, // larger than total height of data; never remove rows
+					minRowsPerPage: 50 // request more data at a time
+				}, "grid2");
+				grid2.startup();
+			});
+		});
+	</script>
+ -->
+	
+	
+	
+	<!-- 
+	<script>
+		require([
+			"dojo/request",
+			"dojo/store/Memory",
+			"dgrid/OnDemandGrid"
+		], function (request, Memory, OnDemandGrid) {
+			request("../workingWithData/hof-batting.json", {
+				handleAs: "json"
+			}).then(function (response) {
+				// Once the response is received, build an in-memory store with the data
+				var store = new Memory({ data: response });
+				
+				// Create an instance of OnDemandGrid referencing the store
+				var grid = new OnDemandGrid({
+					store: store,
+					columns: {
+						first: "First Name",
+						last: "Last Name",
+						totalG: "Games Played"
+					}
+				}, "grid");
+			
+				grid.startup();
+			});
+		});
+	</script>
+	 -->
+</body>
+</html>

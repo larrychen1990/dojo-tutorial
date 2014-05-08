@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>event</title>
+<link rel="stylesheet" href="dijit/themes/claro/claro.css"> 
+<script src="dojo/dojo.js" data-dojo-config="async:true"></script>
+<script>
+// 	require([ 
+// 	  "dojo/on",
+// 	  "dojo/dom",
+// 	  "dojo/dom-style",
+// 	  "dojo/mouse",
+// 	  "dojo/domReady!"
+// 	 ], function(on,dom,domStyle,mouse) {
+
+// 		var myButton=dom.byId("myButton"),
+// 			myDiv=dom.byId("myDiv");
+		
+// 		//Connect the buttons
+// 		on(myButton,"click",function(evt){
+// 			domStyle.set(myDiv,"backgroundColor","blue");
+// 		});
+// 		on(myDiv,mouse.enter,function(evt){
+// 			domStyle.set(myDiv,"backgroundColor","red");
+// 		});
+// 		on(myDiv,mouse.leave,function(evt){
+// 			domStyle.set(myDiv,"backgroundColor","");
+// 		});
+		
+		
+// 		var handle=on(myButton,"click",function(evt){
+// 			alert("This alert will only happen  one time.");
+// 			handle.remove();
+// 		});
+// 	});
+	
+	
+//lang.hitch()
+// 	require([ 
+// 	  "dojo/on",
+// 	  "dojo/dom",
+// 	  "dojo/_base/lang",
+// 	  "dojo/domReady!"
+// 	 ], function(on,dom,lang) {
+		
+// 		var myScopedButton1=dom.byId("myScopedButton1"),
+// 			myScopedButton2=dom.byId("myScopedButton2"),
+// 			myObject={
+// 			id:"myObject",
+// 			onClick:function(evt){
+// 				alert("The scope of this handler is "+this.id);
+// 			}
+// 		};
+// 		on(myScopedButton1,"click",myObject.onClick);
+// 		on(myScopedButton2,"click",lang.hitch(myObject,"onClick"));
+		
+// 	});
+
+
+//NodeList events
+// 	require([ 
+// 	  "dojo/query",
+// 	  "dojo/_base/lang",
+// 	  "dojo/domReady!"
+// 	 ], function(query,lang) {
+// 		var myObject={
+// 				id:"myObject",
+// 				onClick:function(evt){
+// 				alert("The scope of this handler is "+this.id);
+// 				}
+// 		};
+// 		query(".clickMe").on("click",myObject.onClick);
+// 		query(".clickMeAlso").on("click",lang.hitch(myObject,"onClick"));
+		
+// 	});
+
+
+// 	require([ 
+// 	  "dojo/on",
+// 	  "dojo/dom",
+// 	  "dojo/query",
+// 	  "dojo/domReady!"
+// 	 ], function(on,dom) {
+// 		var myObject={
+// 				id:"myObject",
+// 				onClick:function(evt){
+// 				alert("The scope of this handler is "+this.id);
+// 				}
+// 		};
+// 		var div=dom.byId("parentDiv");
+// 		on(div,".clickMe:click",myObject.onClick);
+		
+// 	});
+
+	
+// 	Publish/Subscribe
+	require([ 
+	  "dojo/on",
+	  "dojo/topic",
+	  "dojo/dom-construct",//in this case u must import the dom-construct before dom
+	  "dojo/dom",
+	  "dojo/domReady!"
+	 ], function(on,topic,domConstruct,dom) {
+		var alertButton=dom.byId("alertButton"),
+			createAlert=dom.byId("createAlert");
+				
+		on(alertButton,"click",function(){
+			topic.publish("alertUser","I am alerting you.");
+		});
+		on(createAlert,"click",function(evt){
+			var anotherButton=domConstruct.create("button",{
+				innerHTML:"Another alert button",
+			},createAlert,"after");
+			on(anotherButton,"click",function(){
+				topic.publish("alertUser","I am also alerting you.");
+			});
+		});
+		topic.subscribe("alertUser",function(text){
+			alert(text);
+		});
+	});
+
+	
+</script>
+
+</head>
+<body class="claro">
+
+	<button id="myButton">Click me!</button>
+	<div id="myDiv" style="width:100px;height:100px;border: 1px solid gray;" >Hover over me!</div>
+	
+	
+	
+	<button id="myScopedButton1">Click to see the scope of myScopedButton1</button>
+	<br>
+	<button id="myScopedButton2">Click to see the scope of myScopedButton2</button>
+	<br>
+
+<div id="parentDiv">
+	<button id="Button1" class="clickMe">Click me</button>
+	<button id="Button2" class="clickMeAlso">Click me also</button>
+	<button id="Button3" class="clickMe">Click me too</button>
+	<button id="Button4" class="clickMeAlso">Please click me</button>
+</div>
+	<button id="alertButton">Alert the user</button>
+	<button id="createAlert">Create another alert button</button>
+	
+</body>
+</html>

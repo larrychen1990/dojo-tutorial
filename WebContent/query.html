@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Query</title>
+<script src="dojo/dojo.js" 
+		data-dojo-config="isDebug:true,async:true"></script>
+<script>
+// //require the query and domReady modules
+// require(["dojo/query", "dojo/domReady!"], function(query) {
+//     // retrieve an array of nodes with the ID "list"
+//     var list = query("#list")[0];
+//     console.log(query("#list"));
+//     var odd=query(".odd");
+//     console.log(odd);				//7
+    
+//     var odds1=query("#list .odd");
+//     console.log(odds1);				//6
+    
+//     var oddA=query("a.odd");
+//     console.log(oddA);				
+   
+//  // Retrieve an array of any a element that has an
+//  // li as its ancestor.
+//    var allA= query("li a");
+//     console.log(allA);				
+    
+//  // Retrieve an array of any a element that has an
+//  // li as its direct parent. 
+//     var someA=query("li > a");
+//     console.log(someA);				
+    
+// });
+</script>
+</head>
+<body>
+
+<!-- <ul id="list"> -->
+<!--     <li class="odd"> -->
+<!--         <div class="bold"> -->
+<!--             <a class="odd">Odd</a> -->
+<!--         </div> -->
+<!--     </li> -->
+<!--     <li class="even"> -->
+<!--         <div class="italic"> -->
+<!--             <a class="even">Even</a> -->
+<!--         </div> -->
+<!--     </li> -->
+<!--     <li class="odd"> -->
+<!--         <a class="odd">Odd</a> -->
+<!--     </li> -->
+<!--     <li class="even"> -->
+<!--         <div class="bold"> -->
+<!--             <a class="even">Even</a> -->
+<!--         </div> -->
+<!--     </li> -->
+<!--     <li class="odd"> -->
+<!--         <div class="italic"> -->
+<!--             <a class="odd">Odd</a> -->
+<!--         </div> -->
+<!--     </li> -->
+<!--     <li class="even"> -->
+<!--         <a class="even">Even</a> -->
+<!--     </li> -->
+<!-- </ul> -->
+ 
+<!-- <ul id="list2"> -->
+<!--     <li class="odd">Odd</li> -->
+<!-- </ul> -->
+
+
+<div id="list">
+    <div class="odd">One</div>
+    <div class="even">Two</div>
+    <div class="odd">Three</div>
+    <div class="even">Four</div>
+    <div class="odd">Five</div>
+    <div class="even">Six</div>
+</div>
+
+<script>
+// //Wait for the DOM to be ready before working with it
+// require(["dojo/query", "dojo/dom-class", "dojo/domReady!"],
+//     function(query, domClass) {
+ 
+//         query(".odd").forEach(function(node, index, nodelist){
+//             // for each node in the array returned by query,
+//             // execute the following code
+//             domClass.add(node, "red");
+//         });
+// });
+
+// require(["dojo/query", "dojo/NodeList-dom", "dojo/domReady!"], function(query) {
+//     // Add "red" to the className of each node matching
+//     // the selector ".odd"
+//     query(".odd").addClass("red");
+//     // Add "blue" to the className of each node matching
+//     // the selector ".even"
+//     query(".even").addClass("blue");
+    
+//     query(".odd").removeClass("red").addClass("blue");
+    
+//  // Change the font color to "white" and add "italic" to
+//  // the className of each node matching the selector ".even"
+//  query(".even").style("color", "blue").addClass("italic");
+// });
+</script>
+
+
+<button class="hookUp demoBtn">Click Me!</button>
+<button class="hookUp demoBtn">Click Me!</button>
+<button class="hookUp demoBtn">Click Me!</button>
+<button class="hookUp demoBtn">Click Me!</button>
+<script>
+    // Wait for the DOM to be ready before working with it
+    require(["dojo/query", "dojo/domReady!"], function(query) {
+        query(".hookUp").on("click", function(){
+            alert("This button is hooked up!");
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Tutorial: Rendering a Summary Row</title>
+	<link rel="stylesheet" href="../dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../dgrid/css/dgrid.css">
+	<link rel="stylesheet" href="../dgrid/css/skins/claro.css">
+	<link rel="stylesheet" href="../resources/examples.css">
+</head>
+<body class="claro">
+<!-- Footer  -->
+<h1>Demo: SummaryRow Mixin</h1>
+	<div id="grid"></div>
+	<h2>Same demo, in a grid with columnsets</h2>
+	<div id="gridColumnSet"></div>
+	
+	<script>
+		var dojoConfig;
+		(function(){
+			var baseUrl = location.pathname.replace(/\/[^/]+$/, "/"),
+				dgridUrl = baseUrl + "../";
+			dojoConfig = {
+				async: 1,
+				cacheBust: "1.9.3-0.3.14",
+				// Load dgrid and its dependencies from a local copy.
+				// If we were loading everything locally, this would not
+				// be necessary, since Dojo would automatically pick up
+				// dgrid, xstyle, and put-selector as siblings of the dojo folder.
+				packages: [
+					{ name: "dgrid", location: dgridUrl + "dgrid" },
+					{ name: "xstyle", location: dgridUrl + "xstyle" },
+					{ name: "put-selector", location: dgridUrl + "put-selector" },
+					{ name: "my", location: dgridUrl + "/my" }
+				]
+			};
+		}());
+	</script>
+	<script src="../dojo/dojo.js"></script>
+	<script>
+		require([
+			'dojo/_base/declare',
+			'dojo/_base/lang',
+			'dojo/dom',
+			'dojo/on',
+			'dojo/store/Memory',
+			'dgrid/OnDemandGrid',
+			'dgrid/ColumnSet',
+			'my/SummaryRow'		
+		], function (declare, lang, dom, on, Memory, OnDemandGrid, ColumnSet, SummaryRow) {
+			var store = new Memory({ data: [
+					{ id: 1, name: 'Create child widget 1', user1: 0.5, user2: 0, user3: 0, user4: 7 },
+					{ id: 2, name: 'Create child widget 2', user1: 0.5, user2: 0, user3: 7, user4: 0 },
+					{ id: 3, name: 'Create parent widget', user1: 3, user2: 0, user3: 0.5, user4: 0.5 },
+					{ id: 4, name: 'Write documentation', user1: 1, user2: 7, user3: 0, user4: 0 },
+					{ id: 5, name: 'Push updated build', user1: 0.5, user2: 0, user3: 1, user4: 0 }
+				]});
+			
+			store.getTotals = function () {
+				var totals = {};
+				totals.user1 = totals.user2 = totals.user3 = totals.user4 = 0;
+				
+				for (var i = this.data.length; i--;) {
+					for (var k in totals) {
+						totals[k] += this.data[i][k];
+					}
+				}
+				
+				totals.name = 'Total';
+				return totals;
+			}
+			
+			// Create an instance of OnDemandGrid referencing the store
+			var commonArgs = {
+				className: 'dgrid-autoheight',
+				store: store,
+				sort: 'name'
+			};
+			var grid = new (declare([OnDemandGrid, SummaryRow]))(lang.mixin({
+				columns: {
+					name: 'Name',
+					user1: 'John',
+					user2: 'Jane',
+					user3: 'Joe',
+					user4: 'Kate'
+				}
+			}, commonArgs), 'grid');
+			var gridColumnSet = new (declare([OnDemandGrid, ColumnSet, SummaryRow]))(lang.mixin({
+				columnSets: [
+					[[
+						{ field: 'name', label: 'Name' }
+					]],
+					[[
+						{ field: 'user1', label: 'John' },
+						{ field: 'user2', label: 'Jane' },
+						{ field: 'user3', label: 'Joe' },
+						{ field: 'user4', label: 'Kate' }
+					]]
+				]
+			}, commonArgs), 'gridColumnSet');
+			
+			var totals = store.getTotals();
+			grid.set('summary', totals);
+			gridColumnSet.set('summary', totals);
+			
+			
+			
+			var u=[
+			       {user1:"1",user2:"2.9",user3:"9.0",name:"Larry"},
+			       {user1:"145",user2:"2.459",user3:"9.450",name:"Larry2"}
+			      ];
+			var ts={};
+			ts.user1=ts.user2=ts.user3=0;
+			for(var i=u.length;i--;)
+			for(var k in ts){
+				console.log(u[i][k]);
+				ts[k]+=u[i][k];
+			}
+				console.log(ts);
+		});
+	</script>
+
+</body>
+</html>

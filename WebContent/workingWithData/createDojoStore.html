@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Creating Dojo Store</title>
+<link rel="stylesheet" href="../dijit/themes/claro/claro.css"> 
+</head>
+<body class="claro">
+	<script src="../dojo/dojo.js" data-dojo-config="async: true, isDebug: true, parseOnLoad: true"></script>
+
+	<script>
+		require(["dojo/_base/array"],function(arrayUtil){
+			var myEngine = function(query, options){
+			    var filteringFunction = function(object){
+			        //  do something here based on the passed query object
+			        console.log(object);
+			    };
+			 
+			    var execute = function(array){
+			        var results = arrayUtil.filter(array, filteringFunction);
+			        //  do anything else needed, like sorting and pagination
+			        console.log(results);
+			        return results;
+			    }
+			    execute.matches = filteringFunction;
+			    return execute;
+			}
+			
+			
+		});
+	</script>
+</body>
+</html>

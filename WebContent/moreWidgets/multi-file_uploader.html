@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Multi-File Uploader</title>
+<link rel="stylesheet" href="../dijit/themes/claro/claro.css"/>
+<script src="../dojo/dojo.js" 
+		data-dojo-config="async:true"></script>
+<script>
+	require([
+	        "dojo/parser",
+	        "dojox/form/uploader/plugins/Flash",
+	        "dojox/form/uploader/plugins/IFrame",
+	        "dojox/form/uploader/plugins/HTML5",
+	        "dojo/domReady!"
+	],function(parser){
+		
+		parser.parse();
+	});
+	
+</script>
+</head>
+<body class="claro">
+<form method="post" action="UploadFile.html" id="myForm" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Form Post Test</legend>
+		<input class="browseButton" id="uploader" name="uploadedfile" type="file" 
+				multiple="true" data-dojo-type="dojox/form/Uploader"
+			    data-dojo-props="
+			        label: 'Select Some Files',
+			        url: 'UploadFile.html',
+			        uploadOnSelect: true"/>
+		<br>
+        <input type="text" name="album" value="Summer Vacation">
+        <input type="text" name="year" value="2011">
+		<br>
+        <input type="submit" label="Submit" data-dojo-type="dijit/form/Button">
+       	<div id="files" data-dojo-type="dojox/form/uploader/FileList"
+            data-dojo-props="uploaderId: 'uploader'"></div>
+    </fieldset>
+</form>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<html>       
+    <head>   
+        <meta http-equiv="Content-Type" content="text/html;charset=gb2312">    
+       <title>ItemFileReadStore分页</title>         
+        <link rel="stylesheet" type="text/css" href="dijit/themes/claro/claro.css"/>   
+        <style type="text/css">   
+            body, html {
+	             font-family:helvetica,arial,sans-serif;
+	             font-size:90%; 
+             }   
+        </style>   
+        <!-- 
+        <script src="./dojo/dojo.js" djConfig="parseOnLoad: true"></script>   
+        <script>   
+            dojo.require("dojo.parser");   
+            dojo.require("dojo.data.ItemFileReadStore");   
+            dojo.require("dijit.form.Button");   
+            //准备数据   json
+            var storeData = {   
+                identifier: 'name',   
+                items: [   
+                    {name: 'Item001', aisle: 'Mexican', price: 3.01},   
+                    {name: 'Item002', aisle: 'Condiments', price: 4.01},   
+                    {name: 'Item003', aisle: 'Spices', price: 3.59},   
+                    {name: 'Item004', aisle: 'Spices',price: 2.01},   
+                    {name: 'Item005', aisle: 'Soup', price: 5.01},   
+                    {name: 'Item006', aisle: 'Condiments',price: 1.99},   
+                    {name: 'Item007', aisle: 'Condiments', price: 2.01},   
+                    {name: 'Item008', aisle: 'Condiments', price: 3.99},   
+                    {name: 'Item009', aisle: 'Spices', price: 1.01}   
+               ]   
+            };   
+              
+            function init() {   
+                var currentStart = 0;    
+                var totalItems = 0;                    
+                itemsPerPage = 2;   
+                var request = null;     //定义request对象   
+               //首先将显示数据的div清空   
+                function clearOldList(size, request) {  //for onBegin   
+                    var list = dojo.byId("list");   
+                    if (list) {   
+                        while (list.firstChild) {   //remind   
+                            list.removeChild(list.firstChild);   
+                        }   
+                    }   
+                    totalItems = size;   
+                }   
+                function gotItems(items, request) { //for onComplete    items是一个数组   
+                    currentStart = request.start;   
+                    itemsPerPage = request.count;   
+                    var list = dojo.byId("list");   
+                    if (list) {   
+                       var i;   
+                        for (i = 0; i < items.length; i++) {   
+                            var item = items[i];       
+                            //getValue(item, attribute)取得某个指定属性的值   
+                            var value = foodStore.getValue(item, "name");   
+                            var text = document.createTextNode(value)   
+                            list.appendChild(text);   
+                            var br = document.createElement("br");   
+                            list.appendChild(br);   
+                        }   
+                    }   
+                }   
+                function fetchFailed(error, request) {   
+                    alert("lookup failed.");   
+                }                              
+                //程序首先执行fetch进入到init后方法   
+                request = foodStore.fetch({   
+                    //query : {"name" : "*001"},    
+                    /**  
+                        	增加查询条件，过滤希望查询到的数据  
+                    */  
+                    onBegin: clearOldList,   
+                    onComplete: gotItems,   
+                    onError: fetchFailed,   
+                    start: currentStart,   
+                    count: itemsPerPage   
+                });   
+                function nextPage() {   
+                    if ((currentStart + itemsPerPage) < totalItems) {   
+                        request.start += itemsPerPage;   
+                        request = foodStore.fetch(request); //fetch时start改变，从而显示不同的值   
+                    }   
+                }   
+                function previousPage() {   
+                    if (currentStart > 0) {   
+                        request.start -= itemsPerPage;   
+                        request = foodStore.fetch(request);   
+                    }   
+                }      
+                dojo.connect(forward, "onClick", nextPage);   
+                dojo.connect(back, "onClick", previousPage);   
+            }   
+            dojo.addOnLoad(init);   
+        </script>   
+         -->
+        <script src="dojo/dojo.js" data-dojo-config="async:true"></script>
+        <script>
+        	require([
+        		"dojo/parser",         
+        		"dojo/data/ItemFileReadStore",         
+        		"dijit/form/Button",         
+        		"dojo/on",         
+        		"dojo/dom",         
+        		"dojo/domReady!",         
+        	],function(parser,ItemFileReadStore,Button,on,dom){
+        		var foodStore=new ItemFileReadStore({url:"currency.json"});
+        		
+                var currentStart = 0;    
+                var totalItems = 0;                    
+                itemsPerPage = 2;   
+                var request = null;     //定义request对象  
+                
+                //程序首先执行fetch进入到init后方法   
+                request = foodStore.fetch({   
+                    //query : {"name" : "*001"},    
+                    /*  
+                        	增加查询条件，过滤希望查询到的数据  
+                    */  
+                    onBegin: clearOldList,   
+                    onComplete: gotItems,
+                    onError: fetchFailed,   
+                    start: currentStart,   
+                    count: itemsPerPage
+                });   
+                
+               //首先将显示数据的div清空   
+                function clearOldList(size, request) {  //for onBegin   
+                    var list = dom.byId("list");   
+                    if (list) {   
+                        while (list.firstChild) {   //remind   
+                            list.removeChild(list.firstChild);   
+                        }   
+                    }   
+                    totalItems = size;   
+                }  
+               
+                function gotItems(items, request) { //for onComplete    items是一个数组   
+                    currentStart = request.start;   
+                    itemsPerPage = request.count;   
+                    var list = dom.byId("list");   
+                    if (list) {   
+                       var i;   
+                        for (i = 0; i < items.length; i++) {   
+                            var item = items[i];       
+                            //getValue(item, attribute)取得某个指定属性的值   
+                            var value = foodStore.getValue(item, "name");   
+                            var text = document.createTextNode(value)   
+                            list.appendChild(text);   
+                            var br = document.createElement("br");   
+                            list.appendChild(br);   
+                        }   
+                    }   
+                }   
+                
+                function fetchFailed(error, request) {   
+                    console.error("lookup failed.");   
+                }   
+                
+                
+                var preButton=new Button({
+	                	name:"preButton",
+	                	onClick:previousPage
+                	},"preButton");
+                
+                var nextButton=new Button({
+	                	name:"nextButton",
+	                	onClick:nextPage
+               	 	},"nextButton");
+                
+                
+                function nextPage() {   
+	                    if ((currentStart + itemsPerPage) < totalItems) {   
+	                        request.start += itemsPerPage;   
+	                        request = foodStore.fetch(request); //fetch时start改变，从而显示不同的值   
+	                    }   
+                }   
+                function previousPage() {   
+                    if (currentStart > 0) {   
+                        request.start -= itemsPerPage;   
+                        request = foodStore.fetch(request);   
+                    }   
+                }      
+        	});
+        </script>
+    </head>   
+       
+    <body class="claro">   
+<!--         <div dojoType="dojo.data.ItemFileReadStore" data="storeData" jsId="foodStore"></div>    -->
+        <button id="preButton">上一页</button>   
+        <button id="nextButton">下一页</button>&nbsp;&nbsp;[每页显示2条记录]           
+        <hr style="width:200px;margin-left:0px"/>   
+        <div  style="border:1px solid lightgray;width:100px" id="list"></div>   
+    </body>   
+</html>  

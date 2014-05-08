@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: dgrid as a drop-down!</title>
+
+	<link rel="stylesheet" href="../dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../dijit/themes/claro/claro.css">
+	<link rel="stylesheet" href="../dgrid/css/dgrid.css">
+	<link rel="stylesheet" href="../dgrid/css/skins/claro.css">
+	<link rel="stylesheet" href="../my/TransferBox.css">
+
+	<script>
+		var dojoConfig;
+		(function(){
+			var baseUrl = location.pathname.replace(/\/[^/]+$/, "/"),
+				dgridUrl = baseUrl + "../";
+			dojoConfig = {
+				async: 1,
+				cacheBust: "1.9.3-0.3.14",
+				// Load dgrid and its dependencies from a local copy.
+				// If we were loading everything locally, this would not
+				// be necessary, since Dojo would automatically pick up
+				// dgrid, xstyle, and put-selector as siblings of the dojo folder.
+				packages: [
+					{ name: "dgrid", location: dgridUrl + "dgrid" },
+					{ name: "xstyle", location: dgridUrl + "xstyle" },
+					{ name: "put-selector", location: dgridUrl + "put-selector" },
+					// Also load the widget from a local module
+					{ name: "my", location: dgridUrl + "my" }
+				]
+			};
+		}());
+	</script>
+	<script src="../dojo/dojo.js"></script>
+	<script>
+		var transferbox;
+		require([
+			"my/TransferBox",
+			"dojo/store/Memory",
+			"dojo/store/Observable",
+			"dojo/domReady!"
+		], function(TransferBox, Memory, Observable){
+			var data = [];
+			for(var i=0; i<100; i++){
+				data[i] = {
+					id: i+1,
+					name: "" + (i+1),
+					value: i+1
+				};
+			}
+
+			var store = Observable(new Memory({
+				identifier: "id",
+				data: data
+			}));
+
+			transferbox = new TransferBox({
+				store: store,
+				value: [5, 72]
+			}, "transferbox");
+
+			document.getElementById("showValue").onclick = function() {
+				alert(transferbox.get("value"));
+			}
+		});
+	</script>
+</head>
+<body class="claro">
+	<div id="transferbox"></div>
+	<div>
+		<button id="showValue">Show value</button>
+	</div>
+</body>
+</html>

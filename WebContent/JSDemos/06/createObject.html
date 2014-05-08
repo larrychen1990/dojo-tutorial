@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+/*
+	function createPerson(name,age,job){
+		var o=new Object();
+		o.name=name;
+		o.age=age;
+		o.job=job;
+		o.sayName=function(){
+			alert(this.name);
+		};
+		return o;
+	}
+	var person1=createPerson("Larry",24,"Software Engineer")
+	var person2=createPerson("Larry2",24,"Software Engineer")
+	alert(person1.name);
+  
+ //构造函数模式
+ function Person(name,age,job){
+	 this.name=name;
+	 this.age=age;
+	 this.job=job;
+	 this.sayName=function(){
+		 alert(this.name);
+	 };
+ }
+ var person1=new Person("Larry",24,"Software Engineer");
+ var person2=new Person("Larry2",24,"Software Engineer");
+	alert(person1.name);
+ 
+ 
+ 
+ */
+//原型模式
+function Person(){}
+ Person.prototype.name="Larry";
+ Person.prototype.age=24;
+ Person.prototype.job="Software Engineer";
+ Person.prototype.sayName=function(){
+	 alert(this.name);
+ };
+ var person1=new Person();
+ person1.sayName();
+ person1.name="Kerry";
+ var person2=new Person();
+ person2.sayName();
+ alert(person1.sayName()==person2.sayName());
+ alert(person1.hasOwnProperty("name"));
+ alert("name" in person1);
+ alert(hasOwnProperty(person1,"name"));
+                               
+ 
+ 
+</script>
+</head>
+<body>
+
+</body>
+</html>

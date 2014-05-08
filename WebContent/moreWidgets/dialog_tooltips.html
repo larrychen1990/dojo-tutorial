@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Dialog and tooltips</title>
+<link rel="stylesheet" href="../dijit/themes/claro/claro.css"/>
+<script src="../dojo/dojo.js" 
+		data-dojo-config="async:true"></script>
+<script>
+//Load the Tooltip widget class
+// require([
+//          "dijit/Tooltip", 
+//          "dojo/parser", 
+//          "dojo/domReady!"
+//  ], function(Tooltip, parser){
+//     parser.parse();
+    
+//  // Create a new Tooltip
+//     var tip = new Tooltip({
+//         // Label - the HTML or text to be placed within the Tooltip
+//         label: '<div class="myTipType">This is the content of my Tooltip!</div>',
+//         // Delay before showing the Tooltip (in milliseconds)
+//         showDelay: 250,
+//         // The nodes to attach the Tooltip to
+//         // Can be an array of strings or domNodes
+//         connectId: ["myElement1","myElement2"]
+//     });
+ 
+//     Tooltip.defaultPosition = ["above", "below", "after-centered", "before-centered"];
+
+//  // Add Tooltip of his picture
+//     new Tooltip({
+//         connectId: ["nameTip"],
+//         label: "<img src='rod-stewart.jpg' alt='Rod Stewart' width='300' height='404' />"
+//     });
+//     // Add Tooltip of North London
+//     new Tooltip({
+//         connectId: ["londonTip"],
+//         label: "<img src='emirates-stadium.jpg' alt='The Emirates in London' width='400' height='267' />"
+//     });
+//     //Add Tooltip of record
+//     new Tooltip({
+//         connectId: ["recordsTip"],
+//         label: "<img src='every-picture.jpg' alt='Every Picture Tells a Story' width='200' height='197' />"
+//     });
+//     // Add custom Tooltip
+//     var myTip = new Tooltip({
+//         connectId: ["hoverLink"],
+//         label: "Don't I look funky?",
+//         "class": "customTip"
+//     });
+
+
+//dialogs
+ // Create a new instance of dijit/Dialog
+//     var myDialog = new Dialog({
+//         // The dialog's title
+//         title: "The Dojo Toolkit",
+//         // The dialog's content
+//         content: "This is the dialog content.",
+//         // Hard-code the dialog width
+//         style: "width:200px;"
+//     });
+    
+// });
+	
+</script>
+</head>
+<!-- add the "claro" CSS class to the body -->
+<body class="claro">
+<br>
+<br>
+<!-- 	<button id="TooltipButton" data-dojo-type="dijit/form/Button" onmouseover="dijit.Tooltip.defaultPosition=['above','below']">Tooltip Above</button> -->
+<!-- 	<div class="dijitHidden"><span data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'TooltipButton'">I am <strong>above</strong> the button</span></div> -->
+	 
+<!-- 	<button id="TooltipButton2" data-dojo-type="dijit/form/Button" onmouseover="dijit.Tooltip.defaultPosition=['below','above']">Tooltip Below</button> -->
+<!-- 	<div class="dijitHidden"><span data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'TooltipButton2'">I am <strong>below</strong> the button</span></div> -->
+	 
+<!-- 	<button id="TooltipButton3" data-dojo-type="dijit/form/Button" onmouseover="dijit.Tooltip.defaultPosition=['before','after']">Tooltip After</button> -->
+<!-- 	<div class="dijitHidden"><span data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'TooltipButton3'">I am <strong>after</strong> the button</span></div> -->
+	 
+<!-- 	<button id="TooltipButton4" data-dojo-type="dijit/form/Button" onmouseover="dijit.Tooltip.defaultPosition=['after','before']">Tooltip Before</button> -->
+<!-- 	<div class="dijitHidden"><span data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'TooltipButton4'">I am <strong>before</strong> the button</span></div> -->
+<!-- 	<br> -->
+	
+<!-- 	<ul> -->
+<!-- 	    <li><a href="http://www.imdb.com/title/tt0112573/" id="movieBraveheart">Braveheart</a></li> -->
+<!-- 	    <li><a href="http://www.imdb.com/title/tt0237534/" id="movieBrotherhood">Brotherhood of the Wolf</a></li> -->
+<!-- 	    <li><a href="http://www.imdb.com/title/tt0245844/" id="movieCristo">The Count of Monte Cristo</a></li> -->
+<!-- 	</ul> -->
+<!-- 	<div class="dijitHidden"> -->
+<!-- 	    <div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'movieBraveheart'"> -->
+<!-- 	        <img style="width:100px; height:133px; display:block; float:left; margin-right:10px;" src="../images/1.jpg" /> -->
+<!-- 	        <p style="width:400px;"><strong>Braveheart</strong><br />Braveheart is the partly historical, partly mythological, story of William Wallace, a Scottish common man who fights for his country's freedom from English rule around the end of the 13th century...</p> -->
+<!-- 	        <br style="clear:both;"> -->
+<!-- 	    </div> -->
+<!-- 	</div> -->
+<!-- 	<div class="dijitHidden"> -->
+<!-- 	    <div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'movieBrotherhood'"> -->
+<!-- 	        <img style="width:100px; height:133px; display:block; float:left; margin-right:10px;" src="../images/2.jpg" /> -->
+<!-- 	        <p style="width:400px;"><strong>Brotherhood of the Wolf</strong><br />In 1765 something was stalking the mountains of central France. A 'beast' that pounced on humans and animals with terrible ferocity...</p> -->
+<!-- 	        <br style="clear:both;"> -->
+<!-- 	    </div> -->
+<!-- 	</div> -->
+<!-- 	<div class="dijitHidden"> -->
+<!-- 	    <div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'movieCristo'"> -->
+<!-- 	        <img style="width:100px; height:133px; display:block; float:left; margin-right:10px;" src="../images/1.jpg" /> -->
+<!-- 	        <p style="width:400px;"><strong>The Count of Monte Cristo</strong><br />'The Count of Monte Cristo' is a remake of the Alexander Dumas tale by the same name. Dantes, a sailor who is falsely accused of treason by his best friend Fernand, who wants Dantes' girlfriend Mercedes for himself...</p> -->
+<!-- 	        <br style="clear:both;"> -->
+<!-- 	    </div> -->
+<!-- 	</div> -->
+
+<script>
+    // Require the Dialog class
+    require([
+             "dijit/registry", 
+             "dojo/parser", 
+             "dijit/Dialog",
+             "dijit/form/Button",
+             "dojo/domReady!"
+    ], function(registry, parser){
+        // Show the dialog
+        showDialog = function() {
+            registry.byId("terms").show();
+        }
+        // Hide the dialog
+        hideDialog = function() {
+            registry.byId("terms").hide();
+        }
+ 
+        parser.parse();
+    });
+</script>
+<button onclick="showDialog();" data-dojo-type="dijit/form/Button">View Terms and Conditions</button>
+ 
+<div class="dijitHidden">
+    <div data-dojo-type="dijit/Dialog" style="width:600px;" data-dojo-props="title:'Terms and Conditions'" id="terms">
+        <p><strong>Please agree to the following terms and conditions:</strong></p>
+        <div style="height:160px;overflow-y:scroll;border:1px solid #769dc4;padding:0 10px;width:600px">
+	        <p>
+	        	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed suscipit massa. Aenean vel turpis tincidunt velit gravida venenatis. In iaculis urna non quam tincidunt elementum. Nunc pellentesque aliquam dui, ac facilisis massa sollicitudin et. Donec tincidunt vulputate ultrices. Duis eu risus ut ipsum auctor scelerisque non quis ante. Nam tempor lobortis justo, et rhoncus mauris cursus et. Mauris auctor congue lectus auctor ultrices. Aenean quis feugiat purus. Cras ornare vehicula tempus. Nunc placerat, lorem adipiscing condimentum sagittis, augue velit ornare odio, eget semper risus est et erat....
+	        </p>
+	        <p>
+	        	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed suscipit massa. Aenean vel turpis tincidunt velit gravida venenatis. In iaculis urna non quam tincidunt elementum. Nunc pellentesque aliquam dui, ac facilisis massa sollicitudin et. Donec tincidunt vulputate ultrices. Duis eu risus ut ipsum auctor scelerisque non quis ante. Nam tempor lobortis justo, et rhoncus mauris cursus et. Mauris auctor congue lectus auctor ultrices. Aenean quis feugiat purus. Cras ornare vehicula tempus. Nunc placerat, lorem adipiscing condimentum sagittis, augue velit ornare odio, eget semper risus est et erat....
+	        </p>
+        </div>
+ 
+        <button onclick="hideDialog();" data-dojo-type="dijit/form/Button">I Agree</button>
+        <button onclick="alert('You must agree!');" data-dojo-type="dijit/form/Button">I Don't Agree</button>
+    </div>
+</div>
+
+
+<!-- Stacked Dialogs -->
+<script>
+    //Require the Dialog class
+    require(["dijit/Dialog"], function(Dialog) {
+        // Create counter
+        var counter = 1;
+        // Create a new Dialog
+        createDialog = function(/* boolean*/first) {
+            // Create a new dialog
+            var dialog = new Dialog({
+                // Dialog title
+                title: "New Dialog " + counter,
+                // Create Dialog content
+                content: (!first ? "I am a dialog on top of other dialogs" : "I am the bottom dialog") + "<br /><br /><button onclick='createDialog();' data-dojo-type='dijit/form/Button'>Create another dialog.</button>"
+            });
+            dialog.show();
+            counter++;
+        }
+    });
+ 
+</script>
+<button onclick="createDialog(true);" data-dojo-type="dijit/form/Button">Create New Dialog</button>
+
+
+<!-- Ajax Dialogs with Black Underlay -->
+<style>
+    /* colors the underlay black instead of white
+     * We're using '.claro .dijitDialogUnderlay' as our selector,
+     * to match the specificity in claro.css */
+/*     .claro .dijitDialogUnderlay { background:#000; } */
+</style>
+ 
+<!-- <script> -->
+<!-- //     // Require the Dialog class -->
+<!-- //     require(["dijit/registry", "dojo/parser", "dijit/Dialog", "dojo/domReady!"], function(registry, parser,Dialog){ -->
+<!-- //     	// Show the dialog -->
+<!-- //         showDialog = function() { -->
+<!-- //             registry.byId("ajaxDialog").show(); -->
+<!-- //         } -->
+ 
+<!-- //         parser.parse(); -->
+<!-- //     }); -->
+<!-- </script> -->
+ 
+<!-- <button onclick="showDialog();" data-dojo-type="dijit/form/Button">Load Ajax Dialog</button> -->
+<!-- <div class="dijitHidden"> -->
+<!--     dialog that gets its content via ajax, uses loading message -->
+<!--     <div data-dojo-type="dijit/Dialog" style="width:600px;" data-dojo-props="title:'Ajax Dialog',href:'../hellodojo.html',loadingMessage:'Loading dialog content...'" id="ajaxDialog"></div> -->
+<!-- </div> -->
+
+
+<!-- Button Dropdown -->
+<script>
+    // Require the Button, TooltipDialog, DropDownButton, and TextBox classes
+    require(["dojo/parser", "dijit/form/DropDownButton", "dijit/TooltipDialog", "dijit/form/TextBox", "dijit/form/Button", "dojo/domReady!"],
+    function(parser){
+    	function doAlert(){
+    		alert("kl");
+    	}
+        parser.parse();
+    });
+ 
+</script>
+<div data-dojo-type="dijit/form/DropDownButton">
+    <span>Login</span><!-- Text for the button -->
+    <!-- The dialog portion -->
+    <div data-dojo-type="dijit/TooltipDialog" id="ttDialog">
+        <strong><label for="email" style="display:inline-block;width:100px;">Email:</label></strong>
+        <div data-dojo-type="dijit/form/TextBox" id="email"></div>
+        <br />
+        <strong><label for="pass" style="display:inline-block;width:100px;">Password:</label></strong>
+        <div data-dojo-type="dijit/form/TextBox" id="pass"></div>
+        <br />
+        <button data-dojo-type="dijit/form/Button" data-dojo-props="onClick:doAlert" type="submit">Submit</button>
+    </div>
+</div>
+</body>
+</html>

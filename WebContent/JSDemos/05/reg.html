@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+// 	var re=null,
+// 		i;
+	/*
+	//true
+	for(i=0;i<10;i++){
+		re=/cat/g;
+		alert(re.test("catastrophe"));
+	}
+	//true
+	for(i=0;i<10;i++){
+		re=new RegExp("cat","g");
+		alert(re.test("catastrophe"));
+	}
+
+	var pattern1=/\[bc\]at/i;
+	alert(pattern1.global);
+	alert(pattern1.ignoreCase);
+	alert(pattern1.multiline);
+	alert(pattern1.lastIndex);
+	alert(pattern1.source);
+
+	var pattern2=new RegExp("\\[bc\\]at","i");
+	alert(pattern2.global);
+	alert(pattern2.ignoreCase);
+	alert(pattern2.multiline);
+	alert(pattern2.lastIndex);
+	alert(pattern2.source);
+	
+	var pattern1=/.at/;
+
+	var matches=pattern1.exec(text);
+	alert(matches);
+	alert(matches.index);
+	alert(matches.lastIndex);
+	alert(matches.input);
+	
+	matches=pattern1.exec(text);
+	alert(matches);
+	alert(matches.index);
+	alert(matches.lastIndex);
+	alert(matches.input);
+
+	var text="cat,bat,sat,fat";
+
+	var pattern2=/.at/g;
+
+	var matches=pattern2.exec(text);
+	alert(matches.index);				//0
+	alert(matches.lastIndex);			//3
+	alert(matches[0]);			
+	
+	matches=pattern2.exec(text);	
+	alert(matches.index);				//4
+	alert(matches.lastIndex);			//7
+	
+	var text="000-00-0000";
+	re=/\d{3}-\d{2}-\d{4}/;
+	if(re.test(text)){
+		alert("The pattern was matched.");
+	}
+
+
+
+	
+	*/
+// 	var text="this has been a short summer";
+
+	/*
+	var re=/(.)hort/g;
+	if(re.test(text)){
+		alert(RegExp.input);
+		alert(RegExp.index);
+		alert(RegExp.leftContext);
+		alert(RegExp.rightContext);
+		alert(RegExp.lastIndex);
+		alert(RegExp.lastMatch);
+		alert(RegExp.lastParen);
+		alert(RegExp.multiline);
+	}
+	
+	if(re.test(text)){
+		alert(RegExp.$_);
+		alert(RegExp["$`"]);
+		alert(RegExp["$'"]);
+		alert(RegExp["$&"]);
+		alert(RegExp["$+"]);
+		alert(RegExp["$*"]);
+	}
+	re=/(..)or(.)/g;
+	if(re.test(text)){
+		alert(RegExp.$1);
+		alert(RegExp.$2);
+	}
+	
+	
+	
+	*/
+// 	function htmlEscape(text){
+// 		return text.replace(/[<>"&]/g,function(match,pos,originalText){
+// 			switch(match){
+// 			case"<":
+// 				return "&lt;";
+// 			case">":
+// 				return "&gt;";
+// 			case"&":
+// 				return "&amp;";
+// 			case"\"":
+// 				return "&quot;";
+// 			}
+// 		});
+// 	}
+// 	alert(htmlEscape("<p class=\"greeting\" >Hello world!</p]>"));
+	
+	
+// 	var re=/(\w)\s(\w)/;
+// 	var str="John Smith";
+// 	var newstr=str.replace(re,"$1,$2");
+// // 	print(newstr);
+// 	console.log(newstr);
+	
+// 	var s="Please yes\nmake my day!";
+// 	var str1=s.match(/yes.*day/);
+// 	var str2=s.match(/yes[^]*day/);
+	
+// 	console.log(str1);
+// 	console.log(str2);
+	
+// 	var text="First line\nSecond line";
+// 	var regex=/(\S+)line\n?/y;
+	
+// 	var match=regex.exec(text);
+// 	console.log(match[1]);
+// 	console.log(regex.lastIndex);
+	
+// 	var match2=regex.exec(text);
+// 	console.log(match2[1]);
+// 	console.log(regex.lastIndex);
+
+// 	var match3=regex.exec(text);
+// 	console.log(match2===null);
+
+// 	var support_sticky;
+// 	try{
+// 		RegExp('','y');
+// 		support_sticky=true;
+// 	}catch(e){
+// 		support_sticky=false;
+// 	}
+// 	console.debug(support_sticky);
+
+//JSON
+// var code = '"\u2028\u2029"';
+// JSON.parse(code); // works fine
+// eval(code); // fails
+
+// if(window.JSON){
+// 	window.JSON={
+// 			parse:function(sJSON){return eval("("+sJSON+")");},
+// 			stringify:function(vContent){
+// 				if(vContent instanceof Object){
+// 					var sOutput="";
+// 					if(vContent.constructor === Array){
+// 						for ( var nId = 0; nId < vContent.length; sOutput+=this.stringify(vContent[nId])+",",nId++)
+// 							return "["+sOutput.substr(0,sOutput.length-1)+"]";
+// 					}
+// 					if (vContent.toString()!==Object.prototype.toString) {
+// 						return "\""+vContent.toString().replace(/"/g,"\\$&")+"\"";
+// 					}
+// 					for ( var sProp in vContent) {
+// 						sOutput+="\""+sProp.replace(/"/g,"\\$&")+"\":"+this.stringify(vContent[sProp])+",";						
+// 					}
+// 					return "{"+sOutput.substr(0,sOutput.length-1)+"}";
+// 				}
+// 				return typeof vContent==="string"?"\""+vContent.replace(/"/g,"\\$&")+"\"":String(vContent);
+// 			}
+// 	};
+// }
+// 	console.log(window.JSON.parse(window.JSON.stringify("Hello")));
+// 	console.log(window.JSON.stringify("Hello"));
+// 	console.log(window.JSON);
+// 	console.log(eval(1+9));
+
+var reg=/\.js$/g;
+var str=".js";
+console.log(reg.test(str));
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

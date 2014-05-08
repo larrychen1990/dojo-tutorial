@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>DataGrid</title>
+<link rel="stylesheet" href="../style/style.css" media="screen">
+<link rel="stylesheet" href="../style/demo.css" media="screen">
+<link rel="stylesheet" href="../dijit/themes/claro/claro.css"> 
+<link rel="stylesheet" href="../dojo/resources/dojo.css" />
+<link rel="stylesheet" href="../dojox/grid/resources/claroGrid.css" />
+<style>
+			.firstName {
+				font-style: italic;
+			}
+			.lastName {
+				font-weight: bold;
+			}
+</style>
+</head>
+<body class="claro">
+	<h1>Demo: dojox/grid/DataGrid Simple Structure</h1>
+	<br/>
+	<div id="grid"></div>
+
+
+<script src="../dojo/dojo.js"></script>
+
+<!-- Views  cells noscroll width-->
+<script>
+			var grid, dataStore, store;
+			require([
+				"dojox/grid/DataGrid",
+				"dojo/store/Memory",
+				"dojo/data/ObjectStore",
+				"dojo/request",
+				"dojo/domReady!"
+			], function(DataGrid, Memory, ObjectStore, request){
+
+				request.get("hof-batting.json",{
+					handleAs: "json"
+				}).then(function(data){
+					store = new Memory({ data: data.items });
+					dataStore = new ObjectStore({ objectStore: store });
+
+					grid = new DataGrid({
+						store: dataStore,
+						query: { id: "*" },
+						structure: [
+							{
+								noscroll: true,
+								defaultCell: { width: "84px" },
+								cells: [
+									{ name: "First Name", field: "first", width: "84px" },
+									{ name: "Last Name", field: "last", width: "84px" }
+								]
+							},{
+								defaultCell: { width: "60px" },
+								cells: [
+									[
+										{ name: "Bats", field: "bats", width: "70px", rowSpan: 2 },
+										{ name: "Throws", field: "throws", width: "70px", rowSpan: 2 },
+										{ name: "G", field: "totalG", width: "60px" },
+										{ name: "AB", field: "totalAB", width: "60px" },
+										{ name: "R", field: "totalR", width: "60px" },
+										{ name: "RBI", field: "totalRBI", width: "60px" },
+										{ name: "BB", field: "totalBB", width: "60px" },
+										{ name: "K", field: "totalK", width: "60px" }
+									],[
+										{ name: "Games as Batter", field: "totalGAB", colSpan: 2 },
+										{ name: "H", field: "totalH" },
+										{ name: "2B", field: "total2B" },
+										{ name: "3B", field: "total3B" },
+										{ name: "HR", field: "totalHR" }
+									]
+								]
+							}
+						]
+					}, "grid");
+
+					// since we created this grid programmatically, call startup to render it
+					grid.startup();
+				});
+			});
+		</script>
+
+
+
+<!-- sub rows -->
+<!-- 
+<script>
+			var grid, dataStore, store;
+			require([
+				"dojox/grid/DataGrid",
+				"dojo/store/Memory",
+				"dojo/data/ObjectStore",
+				"dojo/request",
+				"dojo/domReady!"
+			], function(DataGrid, Memory, ObjectStore, request){
+				request.get("hof-batting.json", {
+					handleAs: "json"
+				}).then(function(data){
+					store = new Memory({ data: data.items });
+					dataStore = new ObjectStore({ objectStore: store });
+
+					grid = new DataGrid({
+						store: dataStore,
+						query: { id: "*" },
+						structure: [
+							[
+								{ name: "First Name", field: "first", width: "84px", rowSpan: 2 },
+								{ name: "Last Name", field: "last", width: "84px", rowSpan: 2 },
+								{ name: "Bats", field: "bats", width: "70px", rowSpan: 2 },
+								{ name: "Throws", field: "throws", width: "70px", rowSpan: 2 },
+								{ name: "G", field: "totalG", width: "60px" },
+								{ name: "AB", field: "totalAB", width: "60px" },
+								{ name: "R", field: "totalR", width: "60px" },
+								{ name: "RBI", field: "totalRBI", width: "60px" },
+								{ name: "BB", field: "totalBB", width: "60px" },
+								{ name: "K", field: "totalK", width: "60px" }
+							],[
+								{ name: "Games as Batter", field: "totalGAB", colSpan: 2 },
+								{ name: "H", field: "totalH" },
+								{ name: "2B", field: "total2B" },
+								{ name: "3B", field: "total3B" },
+								{ name: "HR", field: "totalHR" }
+							]
+						]
+					}, "grid");
+
+					// since we created this grid programmatically, call startup to render it
+					grid.startup();
+				});
+			});
+		</script>
+ -->
+
+
+<!-- classes cellClasses headerStyles cellStyles styles -->
+<!-- 
+<script>
+	var grid, dataStore, store;
+	require([
+		"dojox/grid/DataGrid",
+		"dojo/store/Memory",
+		"dojo/data/ObjectStore",
+		"dojo/request",
+		"dojo/domReady!"
+	], function(DataGrid, Memory, ObjectStore,request){
+		request.get("hof-batting.json", {
+			handleAs: "json"
+		}).then(function(data){
+
+			store = new Memory({ data: data.items });
+			dataStore = new ObjectStore({ objectStore: store });
+
+			grid = new DataGrid({
+				store: dataStore,
+				query: { id: "*" },
+				structure: [
+					{ name: "First Name", field: "first", width: "84px", classes: "firstName" },
+					{ name: "Last Name", field: "last", width: "84px", cellClasses: "lastName" },
+					{ name: "Bats", field: "bats", width: "70px", cellStyles: "text-align: right;" },
+					{ name: "Throws", field: "throws", width: "70px",headerStyles:"text-align:right" },
+					{ name: "G", field: "totalG", width: "60px" },
+					{ name: "AB", field: "totalAB", width: "60px" },
+					{ name: "Games as Batter", field: "totalGAB", width: "120px", styles: "text-align: center;" },
+					{ name: "R", field: "totalR", width: "60px" },
+					{ name: "RBI", field: "totalRBI", width: "60px" },
+					{ name: "BB", field: "totalBB", width: "60px" },
+					{ name: "K", field: "totalK", width: "60px" },
+					{ name: "H", field: "totalH", width: "60px" },
+					{ name: "2B", field: "total2B", width: "60px" },
+					{ name: "3B", field: "total3B", width: "60px" },
+					{ name: "HR", field: "totalHR", width: "60px" }
+				]
+			}, "grid");
+			// since we created this grid programmatically, call startup to render it
+			grid.startup();
+		});
+	});
+</script>
+ -->
+</body>
+</html>

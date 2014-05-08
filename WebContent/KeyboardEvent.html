@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>KeyboardEvent</title>
+<script src="dojo/dojo.js" data-dojo-config="async:true"></script>
+<script>
+//onkeyup
+// 	require([
+// 	   "dojo/on",
+// 	   "dojo/domReady!"
+// 	],function(on){
+// 		on(document,"keyup",function(event){
+// 			document.getElementById("keyCode").value=event.keyCode;
+// 		});
+// 	});
+	
+	//The KeyboardEvent object
+// 	require([
+// 	   "dojo/dom-construct",
+// 	   "dojo/on",
+// 	   "dojo/query",
+// 	   "dojo/keys",
+// 	   "dojo/domReady!"
+// 	],function(domConstruct,on,query,keys){
+// 		query("input[type='text']").on("keydown",function(event){
+// 			//query returns a nodelist, which has an on() function available that will listen
+// 			//to all keydown events for each node in the list 
+// 			switch (event.keyCode) {
+// 			case keys.UP_ARROW:
+// 				//prevent the default bahavior
+// 				event.preventDefault();
+// 				console.log("up arrow has been pressed");
+// 				break;
+// 			case keys.DOWN_ARROW:
+// 				event.preventDefault();
+// 				console.log("down arrow has been pressed");
+// 				break;
+// 			case keys.ENTER:
+// 				console.log("enter arrow has been pressed");
+// 				break;
+// 			default:
+// 				console.log("some other key: "+event.keyCode);
+// 			}
+// 		});
+// 	});
+	
+	//full events
+	require([
+	   "dojo/dom",
+	   "dojo/dom-construct",
+	   "dojo/on",
+	   "dojo/query",
+	   "dojo/keys",
+	   "dojo/NodeList-traverse",
+	   "dojo/domReady!"
+	],function(dom,domConstruct,on,query,keys){
+		//get the input tags
+		var inputs=query("input");
+		on(dom.byId("traverseForm"),"keydown",function(event){
+			var node=query.NodeList([event.target]),
+			 nextNode;
+			
+			switch (event.keyCode) {
+			case keys.UP_ARROW:
+				nextNode=node.prev("input");
+				if (nextNode[0]) {
+					nextNode[0].focus();
+				}
+				break;
+			case keys.DOWN_ARROW:
+				nextNode=node.next("input");
+				if (nextNode[0]) {
+					nextNode[0].focus();
+				}
+				break;
+			case keys.HOME:
+					inputs[0].focus();
+				break;
+			case keys.END:
+					inputs[inputs.length-2].focus();
+				break;
+			case keys.ENTER:
+				event.preventDefault();
+				if (event.target.type!="submit") {
+					nextNode=node.next("input");
+					if (nextNode[0]) {
+						nextNode[0].focus();
+					}
+				}else{
+					console.log("form submit!");
+				}
+				break;
+			default:
+					console.log("some other key: "+event.keyCode);
+			}
+		});
+	});
+	
+
+</script>
+</head>
+<body>
+
+<!-- 	<h1>Press any key</h1> -->
+<!-- 	keyCode value: <input type="text" id="keyCode" size="2"/> -->
+	
+<!-- 	<h1>Press Up or Down Arrow Keys</h1> -->
+<!-- 	<input type="text" id="input1" value="up"/> -->
+<!-- 	<input type="text" id="input2" value="down"/> -->
+<!-- 	<input type="submit" id="send" value="send"/> -->
+	
+	<h1>Press Up/Down Arrow Or Enter Keys to traverse form</h1>
+	<h2>Home/End will go to the beginning or end</h2>
+	<form id="traverseForm">
+		First Name: <input type="text" id="firstName"/>
+		Last Name: <input type="text" id="lastName"/>
+		Email Address: <input type="text" id="email"/>
+		Phone Number: <input type="text" id="phone"/>
+		<input type="submit" id="send" value="send"/>
+	</form>
+	
+</body>
+</html>

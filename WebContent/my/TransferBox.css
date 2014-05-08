@@ -1,0 +1,15 @@
+.myTransferBox .dgrid {
+	width: 200px;
+	height: 200px;
+
+	/* Taken from rule for dijitInline */
+	display: inline-block;
+	#zoom: 1;
+	#display: inline;
+	vertical-align: middle;
+	#vertical-align: auto;
+}
+
+.myTransferBox .buttons {
+	width: 27px;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>HelloDojo.html</title>
+</head>
+<body>
+<h1 id="greeting">Hello</h1>
+<!-- load dojo -->
+<!-- 
+ 
+ 
+ 
+<script>
+	require([
+		'dojo/dom',
+		'dojo/dom-construct'
+	],function(dom,domConstruct){
+			var greetingNode=dom.byId('greeting');
+			domConstruct.place('<I> Dojo!<I>',greetingNode);
+	});
+ </script>
+ 
+<script  src="./dojo/dojo.js" 
+	data-dojo-config="async:true"></script>
+ 
+ 
+ <script >
+ 	var dojoConfig={
+ 			async:true,
+ 			packages:[{
+ 				name:'demo',
+ 				location:location.pathname.replace(/\/[^/]*$/,'')+'demo'
+ 			}]
+ 	};
+ </script>
+ <script src="./dojo/dojo.js"></script>
+ <script >
+ 	require([
+ 	     'demo/myModule'
+ 	],function(myModule){
+ 		myModule.setText('greeting','Hello Dojo!');
+ 		setTimeout(function(){
+ 			myModule.restoreText('greeting');
+ 		},3000);
+ 	});	
+ </script>
+ 
+ 
+ 
+<script  src="./dojo/dojo.js" 
+	data-dojo-config="async:true"></script>
+//update packages
+<script>
+	var dojoConfig={
+			async:true,
+			baseUrl:'.',
+			packages:[
+				'dojo',
+				'dijit',
+				'dojox',
+				'demo'
+			]
+	};
+</script>
+
+
+ -->
+ <script>
+ 	 dojoConfig={
+ 			has:{
+ 				"dojo-firebug":true
+ 			},
+//  			baseUrl:"/js",
+ 			async:true,
+ 			parseOnLoad:false,
+ 			foo:"bar",
+ 	};
+ </script>
+
+<script  src="js/dojo/dojo.js"></script>
+ 
+ 
+<!-- 
+ <script>
+ 	require([
+ 	 "dijit/registry",
+ 	 "dojo/parser",
+ 	 "dojo/json",
+ 	 "dojo/_base/config",
+ 	 "dijit/Dialog",
+ 	 "dojo/domReady!"
+ 	],function(registry,parser,JSON,config){
+ 		parser.parse();
+ 		var dialog=registry.byId("dialog");
+ 		dialog.set("content","<pre>"+JSON.stringify(config,null,"\t")+"</pre>");
+ 		dialog.show();
+ 	});
+ </script>
+ <div id="dialog" data-dojo-type="dijit.Dialog" data-dojo-prop="title:'dojoConfig/dojo/_base/config'"></div>
+ -->
+<script >
+  	require([
+  	   'dojo/dom',
+  	   'dojo/fx',
+  	   'dojo/domReady!'
+  	 ],function(dom,fx){
+  		var greeting=dom.byId('greeting');
+  		greeting.innerHTML+=' from Dojo!';
+  		
+  		console.log("first console log");
+  		
+  		fx.slideTo({
+  			node:greeting,
+  			top:100,
+  			left:200
+  		}).play();
+  	});
+ </script>
+
+
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

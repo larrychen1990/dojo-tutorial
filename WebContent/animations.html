@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>animations</title>
+<script src="dojo/dojo.js" 
+		data-dojo-config="isDebug:true,async:true"></script>
+<script>
+//Animating Properties
+
+
+// require([
+//   	"dojo/_base/fx",       
+//   	"dojo/on",       
+//   	"dojo/dom",       
+//   	"dojo/domReady!"       
+//   ],function(baseFx,on,dom){
+	
+// // 	Border Animation
+
+// 	var startButton=dom.byId("startButton"),
+// 		reverseButton=dom.byId("reverseButton"),
+// 		anim8target=dom.byId("anim8target");
+	
+// 	on(startButton,"click",function(event){
+// 		baseFx.animateProperty({
+// 			node:anim8target,
+// 			properties:{borderWidth:100}
+// 		}).play();
+// 	});
+// 	on(reverseButton,"click",function(event){
+// 		baseFx.animateProperty({
+// 			node:anim8target,
+// 			properties:{borderWidth:3}
+// 		}).play();
+// 	});
+	
+	
+// 	//opacity
+// 	baseFx.animateProperty({
+// 		node:anim8target,
+// 		properties:{
+// 			top:{start:25,end:150},
+// 			left:0,
+// 			opacity:{start:1,end:0}
+// 		},
+// 		duration:8000
+// 	}).play();
+// });
+
+
+//Easing ??
+// require([
+//      "dojo/_base/fx",    
+//      "dojo/dom",    
+//      "dojo/fx/easing",    
+//      "dojo/window",    
+//      "dojo/on",    
+//      "dojo/domReady!"   
+//  ],function(baseFx,dom,easing,win,on){
+// 	var dropButton=dom.byId("dropButton"),
+// 	    ariseSirButton=dom.byId("ariseSirButton"),
+// 	    anim8target=dom.byId("anim8target");
+// 	on(dropButton,"click",function(evt){
+// 		var viewport=win.getBox(win.doc);
+// 		baseFx.animateProperty({
+// 			easing:easing.bounceOut,
+// 			duration:500,
+// 			node:anim8target,
+// 			properties:{
+// 				top:{start:0,end:viewport.h-anim8target.offsetHeight}
+// 			}
+// 		}).play();
+// 	});
+// 	on(ariseSirButton,"click",function(evt){
+// 		baseFx.animateProperty({
+// 			node:anim8target,
+// 			properties:{top:0}
+// 		}).play();
+// 	});
+	
+// });
+
+
+//Putting it Together
+// require([
+//    "dojo/_base/fx",     
+//    "dojo/fx",
+//    "dojo/fx/easing",
+//    "dojo/dom-style",
+//    "dojo/dom",
+//    "dojo/on",
+//    "dojo/aspect",
+//    "dojo/domReady!"
+//  ],function(baseFx,fx,easing,domStyle,dom,on,aspect){
+// 	function swapAnim(node1,node2){
+
+// 		var left1=node1.offsetLeft,
+// 			left2=node2.offsetLeft,
+// 			top1=node1.offsetTop,
+// 			top2=node2.offsetTop,
+// 			cTop=dom.byId("container").offsetTop;
+		
+// 		return moveNodes=fx.combine([
+		     
+// 		       fx.slideTo({
+// 		    	   duration:1200,
+// 		    	   node:node2,
+// 		    	   left:left1,
+// 		    	   top:top1
+// 		       }),
+// 		       fx.slideTo({
+// 		    	   duration:1200,
+// 		    	   node:node1,
+// 		    	   left:left2,
+// 		    	   top:top1
+// 		       })
+// 		     ]);
+// 	}
+// 	var originalOrder=true;
+// 	var swapButton=dom.byId("swapButton"),
+// 		c1=originalOrder?dom.byId("content1"):dom.byId("content2"),
+// 		c2=originalOrder?dom.byId("content2"):dom.byId("content1"),
+// 		container=dom.byId("container");
+		
+// 		on(swapButton,"click",function(evt){
+// 			var anim=fx.chain([
+			                   
+// 				swapAnim(c1,c2),
+// 				baseFx.animateProperty({
+// 					node:container,
+// 					properties:{
+// 						backgroundColor:"#fff"
+// 					}
+// 				}),
+// 			]);
+// 			aspect.before(anim,"beforeBegin",function(){
+// 				domStyle.set(container,"backgroundColor","#eee");
+// 			});
+// 			on(anim,"End",function(n1,n2){
+// 				originalOrder=!originalOrder;
+// 			});
+// 			anim.play();
+// 		});
+// });
+
+</script>
+<style type="text/css">
+	.container{
+		border:1px solid gray;
+		width: 500px;
+		height:400px;
+	}
+	.contentBox{
+		border:1px solid gray;
+		text-align:center;
+		float: left;
+		width: 200px;
+		height:300px;
+		padding: 1em;
+	}
+</style>
+</head>
+<body>
+
+<button id="startButton">Grow Borders</button>
+<button id="reverseButton">Shrink Borders</button>
+<br>
+<button id="dropButton">Drop block</button>
+<button id="ariseSirButton">Return block</button>
+
+<div id="anim8target" class="box" style="border-style:outset;width: 200px;height: 200px;margin-left: 300px">
+	<div class="innerBox">A box</div>
+</div>
+<br>
+<br>
+<br>
+<button id="swapButton">Swap</button>
+
+<div class="container" id="container">
+	<div id="content1" class="contentBox" >
+		<div class="innerBox">innerbox1</div>
+	</div>
+	<div id="content2" class="contentBox" >
+		<div class="innerBox">innerbox2</div>
+	</div>
+</div>
+
+</body>
+</html>

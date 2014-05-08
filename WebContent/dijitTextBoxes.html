@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Dijit Themes Buttons and Textboxes</title>
+<link rel="stylesheet" href="dijit/themes/claro/claro.css"> 
+<script src="dojo/dojo.js"
+		data-dojo-config="async:true"></script>
+</head>
+<body class="claro">
+
+	<h1 id="greeting">Hello2</h1>
+ <!-- The Dijit TextBox Family -->
+<!--  dijit/form/TextBox 
+ 	  dijit/form/SimpleTextarea 
+ -->
+ 	<!-- declarative-->
+ 	<!-- 
+ 	<div>
+ 		<label for="text">Name:</label>
+ 		<input id="text" data-dojo-type="dijit/form/TextBox"
+ 				data-dojo-props="placeHolder:'Pls enter text here.'"/>
+ 	</div>
+ 	<div>
+ 		<label for="textarea">Description:</label>
+ 		<textarea id="textarea" rows="5" cols="50"
+ 				data-dojo-type="dijit/form/SimpleTextarea"
+ 				data-dojo-props="
+ 				onFocus:function(){alert('focus');},
+ 				onBlur:function(){alert('blur');},
+ 				selectOnClick:true
+ 			">
+ 			This is a simple SimpleTextarea.
+ 		</textarea>
+ 	</div>
+ 	<script>
+ 		require([
+ 		  "dijit/form/TextBox",
+ 		  "dijit/form/SimpleTextarea",
+ 		  "dojo/parser",
+ 		  "dojo/domReady!"
+ 		]);
+ 	</script>
+ 	 -->
+ 	
+ 	<!-- programmatic -->
+ 	<!-- 
+ 	<div>
+ 		<label for="text">Name:</label>
+ 		<input id="text"/>
+ 	</div>
+ 	<div>
+ 		<label for="textarea">Description:</label>
+ 		<textarea id="textarea"></textarea>
+ 	</div>
+ 	<script>
+ 	require([
+ 		  "dijit/form/TextBox",
+ 		  "dijit/form/SimpleTextarea",
+ 		  "dojo/domReady!"
+ 		],function(TextBox,SimpleTextarea){
+ 			var textbox=new TextBox({
+ 				placeHolder:"Enter text here."
+ 			},"text");
+ 			textbox.startup();
+ 			
+ 			var textarea=new SimpleTextarea({
+ 				rows:5,
+ 				cols:50,
+ 				onFocus:function(){console.log("focus");},
+ 				onBlur:function(){console.log("blur");},
+ 				selectInClick:true,
+ 				value:"This is a simple SimpleTextarea."
+ 			},"textarea");
+ 			textarea.startup();
+ 			
+ 		});
+ 	</script>
+ 	 -->
+ 	
+ 	<!-- 
+	 	dijit/form/NumberTextBox, 
+	 	dijit/form/CurrencyTextBox, 
+	 	dijit/form/TimeTextBox, 
+	 	dijit/form/DateTextBox. 
+ 	 -->
+ 	<!-- declarative-->
+ 	<!-- 
+ 	 <div>
+ 	 	<label for="number">Age:</label>
+ 	 	<input id="number" type="text" value="54" required="true" 
+ 	 			data-dojo-type="dijit/form/NumberTextBox"/>
+ 	 </div>
+ 	 <div>
+ 	 	<label for="currency">Annual Salary:</label>
+ 	 	<input id="currency" value="54775.53" required="true" 
+ 	 			data-dojo-type="dijit/form/CurrencyTextBox"
+ 	 			data-dojo-props="
+ 	 				constraints:{fractional:true},
+ 	 				currency:'USD',
+ 	 				invalidMessage:'Invalid amount.Cents are mandatory.'"/>
+ 	 </div>
+ 	 <div>
+ 	 	<label for="time">Start Time:</label>
+ 	 	<input id="time"  required="true" 
+ 	 			data-dojo-type="dijit/form/TimeTextBox"
+ 	 			data-dojo-props="
+ 	 				constraints:{
+						timePattern:'HH:mm:ss',
+						clickableIncrement:'T00:15:00',
+						visibleIncrement:'T00:15:00',
+						visibleRange:'T01:00:00'
+					},
+ 	 				invalidMessage:'Invalid time.'"/>
+ 	 </div>
+ 	 <div>
+ 	 	<label for="date">Start Date:</label>
+ 	 	<input id="date" value="2011-09-15" required="true" 
+ 	 			data-dojo-type="dijit/form/DateTextBox"/>
+ 	 </div>
+ 	 <script>
+ 	 	require([
+ 	 	 	"dijit/form/NumberTextBox",        
+ 	 	 	"dijit/form/CurrencyTextBox",        
+ 	 	 	"dijit/form/TimeTextBox",        
+ 	 	 	"dijit/form/DateTextBox",        
+ 	 	 	"dojo/domReady!",        
+ 	 	 	"dojo/parser"       
+ 	 	 ]);
+ 	 </script>
+ 	 -->
+ 	 
+ 	<!-- programmatic -->
+ 	<div>
+ 		<label for="number">Age:</label>
+ 		<input id="number"/>
+ 	</div>
+ 	<div>
+ 		<label for="currency">Annual Salary:</label>
+ 		<input id="currency"/>
+ 	</div>
+ 	<div>
+ 		<label for="time">Start Time:</label>
+ 		<input id="time"/>
+ 	</div>
+ 	<div>
+ 		<label for="date">Start Date:</label>
+ 		<input id="date"/>
+ 	</div>
+ 	<script>
+ 	 	require([
+ 	 	 	"dijit/form/NumberTextBox",        
+ 	 	 	"dijit/form/CurrencyTextBox",        
+ 	 	 	"dijit/form/TimeTextBox",        
+ 	 	 	"dijit/form/DateTextBox",        
+ 	 	 	"dojo/domReady!"       
+ 	 	 ],function(NumberTextBox,CurrencyTextBox,TimeTextBox,DateTextBox){
+ 	 		var number=new NumberTextBox({
+ 	 			value:54,
+ 	 			required:true
+ 	 		},"number");
+ 	 		number.startup();
+ 	 		
+ 	 		var currency=new CurrencyTextBox({
+ 	 			value:54775.53,
+ 	 			required:true,
+ 	 			constraints:{fractional:true},
+ 	 			currency:'USD',
+ 	 			invalidMessage:"Invalid amount.Cents are mandatory."
+ 	 		},"currency");
+ 	 		currency.startup();
+ 	 		
+ 	 		var time=new TimeTextBox({
+ 	 			constraints:{
+ 	 				timePattern:"HH:mm:ss",
+ 	 				clickableIncrement:"T00:15:00",
+ 	 				visibleIncrement:"T00:15:00",
+ 	 				visibleRangle:"T01:00:00"
+ 	 			},
+ 	 			invalidMessage:"Invalid time"
+ 	 		},"time");
+ 	 		time.startup();
+ 	 		
+ 	 		var date=new DateTextBox({
+ 	 			value:new Date(2011,8,15)
+ 	 		},"date");
+ 	 		
+ 	 	});
+ 		
+ 	</script>
+ 	 
+ 
+</body>
+</html>

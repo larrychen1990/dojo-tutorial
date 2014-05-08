@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html manifest="/offline.manifest">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+/**
+	if (navigator.onLine) {
+		alert("onLine");
+	}else {
+		alert("offLine");
+	}
+	EventUtil.addHandler(window,"online",function(){
+		alert("online");
+	});
+	EventUtil.addHandler(window,"offline",function(){
+		alert("offline");
+	});
+	EventUtil.addHandler(applicationCache,"updateready",function(){
+		applicationCache.swapCache();
+	});
+ document.cookie="name=larry;domain=.wrox.com;path=/";
+ document.cookie=encodeURIComponent("name")+"="+
+ 				 encodeURIComponent("Nicholas")+";domain=.wrox.com;path=/";
+	
+	
+ 
+ */
+ 
+ var CookieUtil={
+		 get:function(name){
+			var cookieName= encodeURIComponent(name)+"=",
+			cookieStart=document.cookie.indexOf(cookieName),
+			cookieValue=null;
+			if (cookieStart>-1) {
+				var cookieEnd=document.cookie.indexOf(";",cookieStart);
+				if (cookieEnd==-1) {
+					cookieEnd=document.cookie.length;
+				}
+				cookieValue=decodeURIComponent(document.cookie.substring(cookieStart
+						+cookieName.length,cookieEnd));
+			}
+			return cookieValue;
+		 },
+		 set:function(name,value,expires,path,domain,secure){
+			 var cookieText=encodeURIComponent(name)+"="+
+			 				encodeURIComponent(value);
+			 if (expires instanceof Date) {
+				cookieText+=";expires="+expires.toGMTString();
+			}
+			 if (path) {
+				cookieText+=";path="+path;
+			}
+			 if (domain) {
+				cookieText+=";domain="+domain;
+			}
+			 if (secure) {
+				cookieText+=";secure";
+			}
+			 document.cookie=cookieText;
+		 },
+		 unset:function(name,path,domain,secure){
+			 this.set(name,"",new Date(0),path,domain,secure);
+		 }
+ };
+ //set cookie
+ CookieUtil.set("name","Terry");
+ CookieUtil.set("book","JS");
+ alert(CookieUtil.get("name"));
+ alert(CookieUtil.get("book"));
+ 
+ //CookieUtil.unset("name");
+ //CookieUtil.unset("book");
+ 
+ //CookieUtil.set("name","larry","/","wor.com",new Date("January 1,2010"));
+// CookieUtil.set("name","/","wor.com");
+ //CookieUtil.set("name","larry",null,null,null,true);
+ 
+ var SubCookieUtil={
+		 get:function(name,subName){
+			var subCookies=this.getAll(name);
+			if (subCookies) {
+				return subCookies[subName];
+			}else{
+				return null;
+			}
+		 },
+		 getAll:function(name){
+			 var cookieName=encodeURIComponent(name)+"=",
+			 cookieStart=document.cookie.indexOf(cookieName),
+			 cookieValue=null,
+			 cookieEnd,
+			 subCookies,
+			 i,
+			 parts,
+			 result={};
+			 if (cookieStart>-1) {
+				cookieEnd=document.cookie.indexOf(";",cookieStart);
+				if (cookieEnd==-1) {
+					cookieEnd=document.cookie.length;
+				}
+				cookieValue=document.cookie.substring(cookieStart+
+						cookieName.length,cookieEnd);
+				if (cookieValue.length>0) {
+					subCookies=cookieValue.split("&");
+					
+					for (  i = 0,len=subCookies.length; i < len; i++) {
+						parts=subCookies[i].split("=");
+						result[decodeURIComponent(parts[0])]=
+							decodeURIComponent(parts[1]);
+					}
+					return result;
+				}
+			}
+			 return null;
+		 },
+ };
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

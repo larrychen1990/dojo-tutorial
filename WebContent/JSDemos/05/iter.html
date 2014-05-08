@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var nums=[1,2,3,4,5,4,3,2,1];
+	//every()
+	var everyResult=nums.every(function(item,index,array){
+			return (item>2);
+		});	
+	alert(everyResult);
+	//some()
+	var someResult=nums.some(function(item,index,array){
+			return (item>2);
+		});	
+	alert(someResult);
+	//filter()
+	var filterResult=nums.filter(function(item,index,array){
+			return (item>2);
+		});	
+	alert(filterResult);
+	//map()
+	var mapResult=nums.map(function(item,index,array){
+			return item*2;
+		});	
+	alert(mapResult);
+	//forEach()
+	nums.forEach(function(item,index,array){
+			document.writeln("item:"+item);
+			document.writeln("index:"+index);
+			document.writeln("array:"+array);
+			document.writeln("</br>");
+		});
+	document.writeln("<hr/>");
+
+	//reduce
+	var values=[1,2,3,4,5];
+	var sum=values.reduce(function(prev,cur,index,array){
+			document.writeln("prev:"+prev);
+			document.writeln("cur:"+cur);
+			document.writeln("</br>");
+			return prev+cur;
+		});
+	alert(sum);
+	document.writeln("<hr/>");
+	//reduceRight
+	var sumRight=values.reduceRight(function(prev,cur,index,array){
+			document.writeln("prev:"+prev);
+			document.writeln("cur:"+cur);
+			document.writeln("</br>");
+			return prev+cur;
+		});
+	alert(sumRight);
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

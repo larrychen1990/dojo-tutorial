@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+ <title>Dojo ComboBox Widget Test</title>
+ <style>
+  @import "dojo/resources/dojo.css";
+  @import "../css/dijitTests.css";
+ </style>
+ <script type="text/javascript" src="dojo/dojo.js"
+  djConfig="isDebug: false, parseOnLoad: true"></script>
+ <script type="text/javascript" src="../_testCommon.js"></script>
+
+ <script type="text/javascript">
+  dojo.require("dojo.data.ItemFileReadStore");
+  dojo.require("dijit.form.ComboBox");
+  dojo.require("dojo.parser"); // scan page for widgets and instantiate them
+
+
+  function setCountry(value) {
+    var countrySelect= dijit.byId('countryCombo');
+    var cityCombo = dijit.byId('cityCombo');
+    cityData = new dojo.data.ItemFileReadStore({url: 'city_en.json'});
+    cityCombo.store=cityData;
+    cityCombo.query = {type: "" + countrySelect.item['code']};
+    cityCombo._startSearch();
+   }  
+
+  
+ </script>
+</head>
+<body>
+
+ <div dojoType="dojo.data.ItemFileReadStore" jsId="countryData"
+  url="country_en.json"></div>
+ <select id="countryCombo"
+     dojoType="dijit.form.ComboBox" 
+     store="countryData" 
+     name="countryList" 
+     searchAttr="name"
+     onChange="setCountry" 
+     autoComplete="true" >
+ </select>&nbsp;
+ 
+ <select id="cityCombo"
+     name="cityList" 
+     dojoType="dijit.form.ComboBox"
+     searchAttr="name"
+     autoComplete="true">
+ </select>
+</body>
+</html>
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"> 
+<title>下拉菜单</title>
+<link rel="stylesheet" href="static/js/dojo/dojo/resources/dojo.css" />
+<link rel="stylesheet"
+	href="static/js/dojo/dijit/themes/claro/claro.css" />
+<script type="text/javascript" src="static/js/dojo/dojo/dojo.js"
+	data-dojo-config="async: true,parseOnLoad: true"></script>
+<script type="text/javascript">
+	require([ 
+	         'dijit/form/FilteringSelect',
+	         'dojo/store/Memory',
+	         'dojo/domReady!'   
+	         ],function(FilteringSelect,Memory){ 
+		//下拉菜单的store，"py"字段存放每个条目的拼音简码     
+		var selectStore = new Memory({               
+									data:[ 
+									      {name:'赵云',id:'1',py:'zy'}, 
+									      {name:'张飞',id:'2',py:'zf'}, 
+									      {name:'刘备',id:'3',py:'lb'},
+									      {name:'关羽',id:'4',py:'gy'},
+									      {name:'黄忠',id:'5',py:'hz'},
+									      {name:'魏延',id:'6',py:'wy'},
+									      {name:'周瑜',id:'7',py:'zy'}, 
+									      {name:'孙坚',id:'8',py:'sj'},
+									      {name:'曹操',id:'9',py:'cc'}, 
+									      {name:'夏侯敦',id:'10',py:'xhd'},
+									     ]        
+		});                    
+		//创建FilteringSelect       
+		var testSelect = new FilteringSelect({ 
+										id: "testSelect",   
+										name: "test",   
+										value: "",    
+										store: selectStore,  
+										searchAttr: 'py',//指定输入文本框进行用来进行检索的字段  
+										labelAttr: 'name',//指定下拉菜单中显示的字段   
+										required:false,  
+										autoComplete:false 
+										},"testSelect"); 
+	});
+</script>
+</head>
+<body class="claro">
+	<div
+		style="text-align: center; width: 100%; padding-top: 100px; font-size: 15px;">
+		三国人物:<input id="testSelect" />
+	</div>
+</body>
+</html>

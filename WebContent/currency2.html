@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Currency2</title>
+<link rel="stylesheet" href="dijit/themes/claro/claro.css"> 
+<script src="dojo/dojo.js" data-dojo-config="async:true,parseOnLoad:true"></script>
+<script>
+	require([
+		"dijit/form/Select",
+		"dijit/form/CurrencyTextBox",
+		"dojo/currency",
+		"dojo/data/ItemFileReadStore",
+		"dojo/dom",
+		"dojo/domReady!"
+	],function(Select,CurrencyTextBox,currency,ItemFileReadStore,dom){
+		var num=1;
+		var cNum=1;
+		add(dom.byId("x"));
+		//add the element under the given element
+		function add(sDiv){
+			var select=new Select({
+				id: 'select'+num,
+				name: 'select'+num++,
+				title:"search it use key.",
+				options: [{label:"USD",value:"USD"}],
+                onChange:function(){
+	                	dijit.byId(sDiv.id=="x"?"currency1":"currency2").set({
+	                		constraints:{
+	                			symbol:getSymbol(this.value)
+	                			}
+	                	});
+                }
+			});
+			select.placeAt(sDiv);//add
+			
+			//the CurrencyTextBox
+			var curr=new CurrencyTextBox({
+				id:"currency"+cNum++,
+				name:"currency",
+				value:100,
+				currency:select.value.toString(),
+				autocomplete:true,
+				invalidMessage:"Example:500.976",
+				promptMessage:"Pls input a number with three fractions.Example:500.976",
+				constraints:{
+// 				 	fractional:true,	//allow fraction
+				 	places:"3"			//the place of . symbol
+				}
+			},"currency");
+			curr.startup();
+			curr.placeAt(sDiv);
+			
+			//load the json file and add the items to the select button's options
+			var store=new ItemFileReadStore({url:"currency.json"});
+		    var req=store.fetch({
+		    	onItem:getItemValue
+		    });
+		    function getItemValue(item,req){
+		    	var value=store.getValue(item,"value");
+		    	select.options.push({label:value,value:value});
+		    }
+		}
+		
+		//create a new div with children element of select and CurrencyrTextBox
+		var newOne=function(){
+			var div=document.createElement("div");
+			div.setAttribute("id","x"+num);
+			x.appendChild(div);
+			add(div);
+		};
+		newOne();
+		
+// 		//remove the symbol of a string
+// 		//if the string doesn't contain a digit number the return 0.0
+// 		function rmSymbol(/*String*/ val){
+// 			var reg=/[0-9]+\.*[0-9]*/g;
+// 			console.log("val="+val);
+// 			if(/\D[^0-9]$/.test(val)||val==null||val==""){
+// 				return 0.0;
+// 			}					
+// 			return val.match(reg)[0];
+// 		}
+		
+		function getSymbol(/* currency:USD,CNY */val){
+			var reg=/[^\.\d]/g;			//get the symbol
+			var newVal=currency.format("0.00",{
+				currency:val
+			});
+			var array=newVal.match(reg);
+			var str="";
+			for(var i in array){
+				str+=array[i];
+			}
+			return str;
+		}
+	});
+
+	
+	
+	
+// 	require([
+// 		"dijit/form/Select",
+// 		"dijit/form/TextBox",
+// 		"dijit/form/Button",
+// 		"dijit/form/CurrencyTextBox",
+// 		"dojo/dom",
+// 		"dojo/domReady!"
+// 	],function(Select,TextBox,Button,CurrencyTextBox,dom){
+// 		add(dom.byId("x"));
+// 		var num=1;
+// 		function add(sDiv){
+// 			var select=new Select({
+// 				name: 'select'+num++,
+// 				options: [{
+//                     label: 'TN',
+//                     value: 'Tennessee'
+//                 },
+//                 {
+//                     label: 'VA',
+//                     value: 'Virginia',
+//                     selected: true
+//                 },
+//                 {
+//                     label: 'WA',
+//                     value: 'Washington'
+//                 },
+//                 {
+//                     label: 'FL',
+//                     value: 'Florida'
+//                 },
+//                 {
+//                     label: 'CA',
+//                     value: 'California'
+//                 }]
+// 			});
+// 			select.placeAt(sDiv);
+// 		}
+		
+// 		var button=new Button({
+// 			name:"add",
+// 			onClick:function(){
+// 				var y=document.createElement("div");
+// 				y.setAttribute("id","x"+num);
+// 				x.appendChild(y);
+// 				add(y);
+// 			}
+// 		},"add");
+// 		button.startup();
+		
+// 		var currency=new CurrencyTextBox({
+// 			id:"currency",
+// 			name:"currency",
+// 			currency:"USD",
+// 			onClick:function(){
+// 				console.log("kk");
+// 			}
+// 		},"currency");
+// 		currency.startup();
+		
+// 	});
+
+
+// 	require([
+// 		"dijit/form/Select",
+// 		"dijit/form/TextBox",
+// 		"dijit/form/Button",
+// 		"dijit/form/CurrencyTextBox",
+// 		"dojo/number",
+// 		"dojo/currency",
+// 		"dojo/dom",
+// 		"dojo/domReady!"
+// 	],function(Select,TextBox,Button,CurrencyTextBox,number,currency,dom){
+// 		add(dom.byId("x"));
+// 		var num=1;
+// 		function add(sDiv){
+			
+// 			var select=new Select({
+// 				name: 'select'+num++,
+// 				options: [{
+//                     label: 'USD',
+//                     value: 'USD'
+//                 },
+//                 {
+//                     label: 'CNY',
+//                     value: 'CNY'
+//                 },
+//                 {
+//                     label: 'EUR',
+//                     value: 'EUR'
+//                 },
+//                 {
+//                     label: 'JPY',
+//                     value: 'JPY'
+//                 }],
+//                 onChange:function(){
+//                 	//change the currency
+//                 	var c=currency.format(curr.value,{
+//                 		currency:this.value
+//                 	});
+//                 	console.log(curr.value);
+//                 	console.log(c);
+//                 	dom.byId("currency").value=c;
+//                 	console.log(curr.value);
+//                 }
+// 			});
+// 			select.placeAt(sDiv);
+			
+// 			var curr=new CurrencyTextBox({
+// 				id:"currency",
+// 				name:"currency",
+// 				value:500,
+// 				currency:'USD',
+// 				autocomplete:true,
+// 				constraints:{
+// 				 	fractional:true            
+// 				},
+// 				onClick:function(e){
+// 					var reg=/[0-9]*\.[0-9]*/g;
+// 					var str="df$700.09";
+// 					console.log(str.match(reg)[0]);
+					
+// 					//disappear the symbol
+// 					var cy=dom.byId("currency");
+// 					console.log(cy.value.toString());
+// 					cy.value=cy.value.toString().match(reg)[0];
+					
+// 				},
+// 				onBlur:function(e){
+					
+// 				}
+// 			},"currency");
+// 			curr.startup();
+// 			curr.placeAt(sDiv);
+// 		}
+		
+// // 		var button=new Button({
+// // 			name:"add value",
+// // 			onClick:function(){
+// // 				var num=number.parse("1,000,000.00",{
+// // 					places:2
+// // 				});
+
+// // 				var num=number.format(123,{
+// // 					pattern:"0,000"
+// // 				});
+
+// // 				var num=number.format(1000000,{
+// // 					places:2
+// // 				});
+// // 				console.log(num);
+				
+// // 				var curr=currency.format(123,{
+// // 					currency:"CNY"
+// // 				});
+// // 				console.log(curr);
+				
+// // 				}
+			
+// // 		},"add");
+// // 		button.startup();
+		
+		
+// 	});
+
+</script>
+</head>
+<body class="claro">
+	<div id="x"></div>
+<!-- 	<button id="add">add value</button> -->
+</body>
+</html>

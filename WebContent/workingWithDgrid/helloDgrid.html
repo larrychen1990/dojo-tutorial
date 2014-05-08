@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Tutorial: Hello dgrid!</title>
+	<link rel="stylesheet" href="../dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../dgrid/css/dgrid.css">
+	<link rel="stylesheet" href="../dgrid/css/skins/claro.css">
+	<!-- load Dojo -->
+	<script>
+		var dojoConfig;
+		(function(){
+			var baseUrl = location.pathname.replace(/\/[^/]+$/, "/../");
+			dojoConfig = {
+				async: 1,
+				cacheBust: "1.9.3-0.3.14",
+				// Load dgrid and its dependencies from a local copy.
+				// If we were loading everything locally, this would not
+				// be necessary, since Dojo would automatically pick up
+				// dgrid, xstyle, and put-selector as siblings of the dojo folder.
+				packages: [
+					{ name: "dgrid", location: baseUrl + "dgrid" },
+					{ name: "xstyle", location: baseUrl + "xstyle" },
+					{ name: "put-selector", location: baseUrl + "put-selector" }
+				]
+			};
+		}());
+	</script>
+	<script src="../dojo/dojo.js"></script>
+<!-- 	Handling Events -->
+<script>
+		require(["dojo/_base/declare", "dgrid/Grid", "dgrid/Keyboard", "dgrid/Selection", "dojo/domReady!"],
+		function(declare, Grid, Keyboard, Selection){
+			var data = [
+				{ first: "Bob", last: "Barker", age: 89 },
+				{ first: "Vanna", last: "White", age: 55 },
+				{ first: "Pat", last: "Sajak", age: 65 }
+			];
+
+			// Create a new constructor by mixing in the components
+			var CustomGrid = declare([ Grid, Keyboard, Selection ]);
+
+			// Now, create an instance of our custom grid which
+			// have the features we added!
+			var grid = new CustomGrid({
+				columns: {
+					first: "First Name",
+					last: "Last Name",
+					age: "Age"
+				},
+				selectionMode: "single", // for Selection; only select a single row at a time
+				cellNavigation: false // for Keyboard; allow only row-level keyboard navigation
+			}, "grid");
+			grid.renderArray(data);
+
+			grid.on("dgrid-select", function(event){
+				// Report the item from the selected row to the console.
+				console.log("Row selected: ", event.rows[0].data);
+			});
+			grid.on("dgrid-deselect", function(event){
+				console.log("Row de-selected: ", event.rows[0].data);
+			});
+			grid.on(".dgrid-row:click", function(event){
+				var row = grid.row(event);
+				console.log("Row clicked:", row.data);
+			});
+		});
+	</script>
+
+
+
+	<!-- Expanding functionality with mixins, plugins, and extensions -->
+	<!-- 
+	<script>
+		require(["dojo/_base/declare", "dgrid/Grid", "dgrid/Keyboard", "dgrid/Selection", "dojo/domReady!"],
+        function(declare, Grid, Keyboard, Selection){
+            var data = [
+                { first: "Bob", last: "Barker", age: 89 },
+                { first: "Vanna", last: "White", age: 55 },
+                { first: "Pat", last: "Sajak", age: 65 }
+            ];
+
+            // Create a new constructor by mixing in the components
+            var CustomGrid = declare([ Grid, Keyboard, Selection ]);
+
+            // Now, create an instance of our custom grid which
+            // have the features we added!
+            var grid = new CustomGrid({
+                columns: {
+                    first: "First Name",
+                    last: "Last Name",
+                    age: "Age"
+                },
+                selectionMode: "single", // for Selection; only select a single row at a time
+                cellNavigation: false // for Keyboard; allow only row-level keyboard navigation
+            }, "grid");
+            grid.renderArray(data);
+        });
+	</script>
+	 -->
+	
+	
+	
+	
+	
+	<!--get start  -->
+	<!-- 
+	<script>
+		require(["dgrid/Grid", "dojo/domReady!"],
+        function(Grid){
+            var data = [
+                { first: "Bob", last: "Barker", age: 89 },
+                { first: "Vanna", last: "White", age: 55 },
+                { first: "Pat", last: "Sajak", age: 65 }
+            ];
+
+            var grid = new Grid({
+                columns: {
+                    first: "First Name",
+                    last: "Last Name",
+                    age: "Age"
+                }
+            }, "grid");
+            grid.renderArray(data);
+        });
+	</script>
+	 -->
+</head>
+<body class="claro">
+	<div id="grid"></div>
+</body>
+</html>

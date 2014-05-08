@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Currency</title>
+<link rel="stylesheet" href="dijit/themes/claro/claro.css"> 
+<script src="dojo/dojo.js" data-dojo-config="async:true"></script>
+<script>
+	require([
+		"dijit/form/CurrencyTextBox",
+		"dojo/currency",
+		"dojo/dom",
+		"dojo/domReady!"
+	],function(CurrencyTextBox,currency2,dom){
+		var currency=new CurrencyTextBox({
+			id:"currency",			//the node id attr
+			name:"currency",		//the node name attr
+			value:800.5834,			//the field value
+			title:"currency",		//the node title
+			placeHolder:"haha money",//a hint
+			scrollOnFocus:true,
+			selectOnClick:true,		//all text will be selected if true
+			propercase:true,		//if true convert teh first charactor of each word to uppercase
+			required:true,			//the field is required if true
+			disabled:false,			//if false can't response to the user
+			lowercase:false,		//convert all charactors to lowercase if true
+			//maxLength:8,			//the maxLength of the value
+			constraints:{
+				fractional:true,	//if true the value will be like 800.58,and u must input a fraction
+									//if false the value 800.58 will be 801
+				symbol:"^",
+				places:"5",
+				pattern:"000.000"
+			},
+			currency:'USD',
+			promptMessage:"heihei", //display a hint prompt string when focused
+			invalidMessage:"invalid",
+			rangeMessage:"out of range",
+			missingMessage:"u must input something",//display if the field is empty and the field is required
+			style:{
+				width:"50"
+			},
+			onClick:function(){
+				console.log(this.value);
+				console.log(this.required);
+				console.log(this.constraints.fractional);
+				console.log(this.id);
+				console.log(this.name);
+				console.log(this.currency);
+				console.log(this.toString());	//convert the value to string
+			}
+		},"currency");
+		currency.startup();
+		
+// 		console.log(currency.currency);
+// 		currency.set("currency","EUR");
+// 		console.log(currency.currency);
+		
+// 		dijit.byId("currency").set({
+// 			constraints:{
+// 				symbol:"$"
+// 				}
+// 		});
+		
+// 		var currSymbol={
+// 				"USD_symbol": "US$",
+// 				"CAD_symbol": "CA$",
+// 				"GBP_symbol": "£",
+// 				"HKD_symbol": "HK$",
+// 				"JPY_symbol": "JP¥",
+// 				"AUD_symbol": "A$",
+// 				"CNY_symbol": "CN¥",
+// 				"EUR_symbol": "€"
+// 		};
+// 		console.log(currSymbol.USD_symbol);
+		
+// 		var reg=/[0-9]+\.*[0-9]*/g;
+// 			reg2=/\D[^\.]/g;
+// 		var str="CN$500.45";
+// 		var parVal=currency2.format(null,{
+// 			currency:"CNY"
+// 		});
+// 		console.log(parVal);
+// 		console.log(str.match(reg));
+
+	var a=dojo.number.format("5555.777777",{places:"3"});
+		console.log(a);
+		
+		var b=dojo.currency.format("005.22622",{places:"2"});
+		console.log(b);
+		var c=dojo.currency.parse("98985.22222",{palces:"2"});
+		console.log(c);
+	});
+</script>
+</head>
+<body class="claro">
+
+	<input id="currency" type="text"/>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+	identifier:"abbreviation",
+	label:"city",
+	items:[
+		{abbreviation:"AAB",name:"ARRABURY QL",type:"AF"},
+		{abbreviation:"AAC",name:"AL-ARISH",type:"AF"},
+		{abbreviation:"AAE",name:"ANNABA",type:"AF"},
+		{abbreviation:"AAI",name:"ARRAIAS TO",type:"AL"},
+		{abbreviation:"AAL",name:"AALBORG",type:"AL"},
+		{abbreviation:"AAO",name:"ANACO",type:"AL"},
+		{abbreviation:"AAR",name:"AARHUS",type:"AL"},
+		{abbreviation:"AAV",name:"ALAH",type:"AO"},
+		{abbreviation:"AAX",name:"ARAXA MG",type:"AO"},
+	]
+}
+

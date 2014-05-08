@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>AMD Modules</title>
+<script src="dojo/dojo.js" 
+		data-dojo-config="isDebug:true,async:true"></script>
+<script>
+	require([
+	         "demo/define/define_01",
+	         "demo/define/define_02",
+	         "demo/define/define_func",
+	         "demo/define/define_date",
+	         "demo/define/define_text",
+	         "demo/define/define_i18n",
+	         "demo/define/define_has",
+	         "demo/define/define_domReady"
+	 ],function(d01,d02,d03,d04,Dtext,Di18n,Dhas){
+		console.log(d01);		//5
+		console.log(d02.library);		//dojo
+		console.log(d02.version);		//1.9
+		d03.increment();
+		console.log(d03.getValue());		//1
+		
+		
+		console.log(d03.getValue());		//1
+		
+		var d04=new d04();
+		d04.showDate("date",new Date());
+		
+		
+		console.log(Dtext);		//
+		console.log(Di18n);		//
+		var dialog=new Di18n({
+			title:"title"
+		});
+		dialog.show();
+		
+		
+		
+	});
+	
+	
+	//Using plugins
+	
+	
+</script>
+</head>
+<body>
+
+<div id="date"></div>
+
+</body>
+</html>

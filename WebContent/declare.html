@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Declare</title>
+<link  rel="stylesheet" href="dijit/themes/claro/claro.css">
+<script src="dojo/dojo.js" 
+		data-dojo-config="isDebug:true,async:true"></script>
+<script>
+require([
+ 	"dojo/_base/declare",
+ 	"demo/declare/declare_button"
+ ],function(declare,button){
+// 	// Create a scoped, anonymous class
+// 	var MyClass = declare(null, {
+// 		// Any property
+// 	    myProperty1: 12,
+// 	    // Another
+// 	    myOtherProperty: "Hello",
+// 	    // A method
+// 	    myMethod: function(){
+// 	        // Perform any functionality here
+// 	        return 30;
+// 	    }
+// 	});
+// 	var myClass=new MyClass();
+// 	console.log(typeof MyClass);
+// 	console.log(typeof myClass);
+// 	console.log(myClass.myOtherProperty);
+	
+// 	//with superclass
+// 	var MySubClass = declare(MyClass, {
+// 	    // MySubClass now has all of MyClass's properties and methods
+// 	    // These properties and methods override parent's
+// 	});
+// 	console.log( MySubClass);
+	
+	
+	var btn=new button({
+		name:"button1"
+	},"button");
+	btn.startup();
+	console.log(btn.label);
+	
+	
+// 	// Create a new class
+// 	var Twitter = declare(null, {
+// 	    // The default username
+// 	    username: "defaultUser",
+// 	    // The constructor
+// 	    constructor: function(args){
+// 	        declare.safeMixin(this,args);
+// 	    }
+// 	});
+	
+	
+// 	var myInstance=new Twitter
+// // 	();
+// 	({
+// 		username:"Larry"
+// 	});
+// 	console.log(myInstance.username);
+
+
+// 	 Inheritance
+
+// 	// Define class A
+// 	 var A = declare(null, {
+// 	     // A few properties...
+// 	     propertyA: "Yes",
+// 	     propertyB: 2
+// 	 });
+	  
+// 	 // Define class B
+// 	 var B = declare(A, {
+// 	     // A few properties...
+// 	     propertyA: "Maybe",
+// 	     propertyB: 1,
+// 	     propertyC: true
+// 	 });
+	  
+// 	 // Define class C
+// 	 var C = declare([A,B], {
+// 	     // A few properties...
+// 	     propertyA: "No",
+// 	     propertyB: 99,
+// 	     propertyD: false
+// 	 });
+	 
+// 	var instance=new C();
+// 	console.log(instance.propertyA);
+// 	console.log(instance.propertyB);
+// 	console.log(instance.propertyC);
+// 	console.log(instance.propertyD);
+
+
+// var MyClass = declare(null, {
+//     primitiveVal: 5,
+//     objectVal: [1, 2, 3]
+// });
+ 
+// var obj1 = new MyClass();
+// var obj2 = new MyClass();
+ 
+// // both return the same value from the prototype
+// 	console.log(obj1.primitiveVal === obj2.primitiveVal); // true
+// 	console.log(obj1.primitiveVal === 5); // true
+// 	console.log(obj2.primitiveVal === 5); // true
+
+ 
+// // obj2 gets its own property (prototype remains unchanged)
+// 	obj2.primitiveVal = 10;
+ 
+// // obj1 still gets its value from the prototype
+// 	console.log(obj1.primitiveVal === 5); // true
+// 	console.log(obj2.primitiveVal === 10); // true
+ 
+// // both point to the array on the prototype,
+// // neither instance has its own array at this point
+// 	console.log(obj1.objectVal === obj2.objectVal); // true
+ 
+// // obj2 manipulates the prototype's array
+// 	obj2.objectVal.push(4);
+// // obj2's manipulation is reflected in obj1 since the array
+// // is shared by all instances from the prototype
+// 	console.log(obj1.objectVal.length === 4); // true
+// 	console.log(obj1.objectVal[3] === 4); // true
+ 
+// // only assignment of the property itself (not manipulation of object
+// // properties) creates an instance-specific property
+// 	obj2.objectVal = [];
+// 	console.log(obj1.objectVal === obj2.objectVal); // false
+	
+	
+	
+	// To avoid inadvertently sharing arrays or objects among all instances, 
+	// object properties should be declared with null values and initialized 
+	// in the constructor function:
+		var YourClass=declare(null, {
+		    // not strictly necessary, but good practice
+		    // for readability to declare all properties
+		    memberList: null,
+		    roomMap: null,
+		 
+		    constructor: function () {
+		        // initializing these properties with values in the constructor
+		        // ensures that they ready for use by other methods
+		        // (and are not null or undefined)
+		        this.memberList = [];
+		        this.roomMap = {};
+		    	}
+		});
+		
+		var yourClass1=new YourClass();
+		var yourClass2=new YourClass();
+	
+		console.log(yourClass1.memberList===yourClass2.memberList);		//false
+		yourClass1.memberList.push(3);
+		console.log(yourClass1.memberList===yourClass2.memberList);		//false
+		yourClass1.memberList=[9,8,7];
+		console.log(yourClass1.memberList===yourClass2.memberList);		//false
+	
+	
+});
+
+
+    
+</script>
+</head>
+<body class="claro">
+	<button id="button"></button>
+
+</body>
+</html>

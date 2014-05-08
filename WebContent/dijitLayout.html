@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Dijit Themes Buttons and Textboxes</title>
+<link rel="stylesheet" href="style/layout.css">
+<link rel="stylesheet" href="dijit/themes/claro/claro.css"> 
+<script src="dojo/dojo.js"
+		data-dojo-config="async:true,parseOnLoad:true"></script>
+<script>
+//the first two demos
+// 	require([
+// 	 	"dojo/parser",
+// 	 	"dijit/layout/BorderContainer",
+// 	 	"dijit/layout/TabContainer",
+// 	 	"dijit/layout/ContentPane"
+// 	 ],function(){
+		
+// 	});
+
+
+	require([
+	 	"dijit/registry",
+	 	"dijit/layout/BorderContainer",
+	 	"dijit/layout/TabContainer",
+	 	"dijit/layout/ContentPane",
+	 	"dijit/form/Button",
+	 	"dojo/domReady!"
+	 ],function(registry,BorderContainer,TabContainer,ContentPane,Button){
+		
+		// create the BorderContainer and attach it to our appLayout div
+		var appLayout=new BorderContainer({
+			design:"headline"
+		},"appLayout");
+		
+		
+		// create the TabContainer
+		var contentTabs=new TabContainer({
+			region:"center",
+			id:"contentPane",
+			tabPosition:"bottom",
+			"class":"centerPanel"
+		});
+		
+		// add the TabContainer as a child of the BorderContainer
+		appLayout.addChild(contentTabs);
+		
+		// create and add the BorderContainer edge regions
+		appLayout.addChild(
+			new ContentPane({
+				region:"top",
+				"class":"edgePanel",
+				content:"Header content (top)"
+			})		
+		);
+		appLayout.addChild(
+			new ContentPane({
+				region:"left",
+				id:"leftCol",
+				"class":"edgePanel",
+				content:"Sidebar content (left)",
+				splitter:true
+			})		
+		);
+		
+		// Add initial content to the TabContainer
+		appLayout.addChild(
+			new ContentPane({
+				region:"right",
+				href:"contentGroup1.html",
+				title:"Group 1"
+			})		
+		);
+		
+		//create add button in the bottom contentPane
+		var num=1;
+		var button=new Button({
+			name:"add",
+			onClick:function(){
+				addTab("Tab "+num++);
+			}
+		});
+		
+		var startPane=new ContentPane({
+				title:"start",
+				id:"startPane",
+				content:"The first pane."
+			});
+		
+
+
+		startPane.addChild(button);
+		contentTabs.addChild(startPane);
+		
+		// start up and do layout
+		appLayout.startup();
+		
+		
+		function addTab(name){
+			var pane=new ContentPane({
+				title:name,
+				content:"<h4>"+name+"</h4>"
+			});
+			registry.byId("contentPane").addChild(pane);
+		}
+		
+		
+		
+		
+	});
+</script>
+</head>
+<body class="claro">
+<!-- tabLayout demo 1-->
+<!-- 	  <div -->
+<!--             id="appLayout" class="demoLayout" -->
+<!--             data-dojo-type="dijit/layout/BorderContainer" -->
+<!--             data-dojo-props="design: 'headline'"> -->
+<!--         <div -->
+<!--                 class="edgePanel" -->
+<!--                 data-dojo-type="dijit/layout/ContentPane" -->
+<!--                 data-dojo-props="region: 'top'">Header content (top)</div> -->
+<!--         <div -->
+<!--             id="leftCol" class="edgePanel" -->
+<!--             data-dojo-type="dijit/layout/ContentPane" -->
+<!--             data-dojo-props="region: 'left', splitter: true">Sidebar content (left)</div> -->
+       
+<!--         <div -->
+<!--                 class="centerPanel" -->
+<!--                 data-dojo-type="dijit/layout/TabContainer" -->
+<!--                 data-dojo-props="region: 'center',tabPosition:'top'"> -->
+<!--             <div -->
+<!--             	data-dojo-type="dijit/layout/ContentPane" -->
+<!--             	data-dojo-props="title:'Group 1'"> -->
+<!--                 <h4>Group 1 Content</h4> -->
+<!--                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
+<!--             </div> -->
+<!--             <div -->
+<!--             	data-dojo-type="dijit/layout/ContentPane" -->
+<!--             	data-dojo-props="title:'Group 2'"> -->
+<!--                 <h4>Group 2 Content</h4> -->
+<!--             </div> -->
+<!--             <div -->
+<!--             	data-dojo-type="dijit/layout/ContentPane" -->
+<!--             	data-dojo-props="title: 'Long Tab Label for this One'"> -->
+<!--                 <h4>Group 3 Content</h4> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+
+<!--    demolayout 2-->
+<!-- <div class="demoLayout" style="height: 300px; width: 300px" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design: 'headline'"> -->
+<!--    	<div class="centerPanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'center'">center1</div> -->
+<!--     <div class="demoLayout" style="height: 50%" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region: 'top', splitter: true, design: 'headline'"> -->
+<!--         <div class="centerPanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'center'">center2</div> -->
+<!--         <div class="edgePanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'bottom'">bottom1</div> -->
+<!--     </div> -->
+<!--     <div class="edgePanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter: true, region: 'left'">left1</div> -->
+<!--     <div class="demoLayout" style="width: 50%" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region: 'right', design: 'headline'"> -->
+<!--         <div class="centerPanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'center'">center3</div> -->
+<!--         <div class="edgePanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'left'">left2</div> -->
+<!--     </div> -->
+<!--     <div class="edgePanel" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter: true, region: 'bottom'">bottom2</div> -->
+<!-- </div> -->
+
+
+<div id="appLayout" class="demoLayout"></div>
+
+
+
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+ 
+ 
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	/*
+	var person=new Object();
+	person.name="Larry";
+	person.age=23;
+	person.job="Software Engineer";
+	person.sayName=function(){
+		alert(this.name);
+	};
+	person.sayName();
+	
+	//字面量法
+	var person={
+			name:"Larry",
+			age:23,
+			job:"Software Engineer",
+			
+			sayName:function(){
+				alert(this.name);
+			}
+	};
+	person.sayName();
+	
+	
+	
+	*/
+	var book={};
+	Object.defineProperties(book,{
+		_year:{
+			value:2004
+		},
+		edition:{
+			value:1
+		},
+		year:{
+			get:function(){
+				return this._year;
+			},
+			set:function(newValue){
+				if (newValue>2004) {
+					this._year=newValue;
+					this.edition+=newValue-2004;
+				}
+			}
+		}
+	});
+	var descriptor=Object.getOwnPropertyDescriptor(book,"_year");
+	alert(descriptor.value);
+	alert(descriptor.configurable);
+	alert(typeof  descriptor.get);
+	
+	var descriptor=Object.getOwnPropertyDescriptor(book,"year");
+	alert(descriptor.value);
+	alert(descriptor.enumerable);
+	alert(typeof  descriptor.get);
+	
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

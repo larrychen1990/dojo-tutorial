@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Test</title>
+<!-- <link rel="stylesheet" href="dijit/themes/claro/claro.css">  -->
+<script src="dojo/dojo.js"
+	data-dojo-config="async:true"></script>
+	<!-- 
+<script>
+	function rmSymbol( val){
+					var reg=/[0-9]+\.*[0-9]*/g;
+					console.log("val="+val);
+					if(/\D[^0-9]$/.test(val)||val==null||val==""){
+						return null;
+						}					
+						
+					console.log("val="+val.match(reg)[0]);
+						
+					
+					return parseFloat(val.match(reg)[0]);
+		}
+		
+		console.log(rmSymbol("CN¥0.00"));
+		
+		var re=/[0-9]+\.*[0-9]*/g;
+		var re2=/\D[^0-9]$/g;
+		var s="CN¥0.00";
+		
+		console.log(re2.test(s));
+		console.log(s.match(re)[0]);
+</script>
+	 -->
+<script>
+// 	require([
+// 	 	"dojo/data/ItemFileReadStore",
+// 	 	"dojo/domReady!",
+// 	 ],function(ItemFileReadStore){
+// 		var store=new ItemFileReadStore({url:"city_en.json"});
+// 		console.log(store.url);
+// 		console.log(store);
+// 		store.fetch({
+// 			query:"book",
+// 			onComplete:function(){
+// 				console.log("kk");
+// 			}
+// 		});
+// 		var array=store.getAttributes(items);
+// 				console.log(array);
+// 	});
+
+
+// 	require([
+// 	 	"dijit/form/Select",
+// 	 	"dojo/data/ItemFileReadStore",
+// 	 	"dojo/domReady!",
+// 	 ],function(Select,ItemFileReadStore){
+	    //json data  
+// 	    var storeData = {   
+// 	        'identifier': 'name',   
+// 	        'label': 'name',   
+// 	        'items': [   
+// 	            {
+// 	            	'name':'Africa', 
+// 	            	'type':'continent',   
+// 	            	'children':[
+// 	            	            {'_reference':'Egypt'}, 
+// 	            	            {'_reference':'Kenya'}, 
+// 	            	            {'_reference':'Sudan'}
+// 	            	           ] 
+// 	            },   
+// 	            {'name':'Egypt', 'type':'country' },   
+// 	            {'name':'Kenya', 'type':'country', 'type':'city' },   
+// 	            {'name':'Sudan', 'type':'country', 'type':'city' },   
+// 	            {'name':'Mombasa', 'type':'city' }   
+// 	        ]   
+// 	    };   
+// 	    var itemStore = new ItemFileReadStore({data : storeData});   
+// 	    var request = itemStore.fetch({   
+// 	        onItem : testRef   
+// 	    });   
+// 	    function testRef (item, request) {   
+// 	        if (itemStore.getValue(item, "name") == "Africa") {   
+// 	            var item = itemStore.getValue(item, "children");   
+// 	            console.log(itemStore.getValue(item, "name") + ":" + itemStore.getValue(item, "type"));      
+// 	            //Egypt:country   
+// 	        }   
+// 	    } 
+	    
+	    
+// 	    var store=new ItemFileReadStore({url:"city_en.json"});
+// 	    var req=store.fetch({
+// 	    	onItem:getVal
+// 	    });
+// 	    function getVal(item,req){
+// 	    	console.log("=====================");
+// 	    	console.log(store.getValue(item,"abbreviation"));
+// 	    	console.log(store.getValue(item,"name"));
+// 	    	console.log(store.getValue(item,"type"));
+// 	    	console.log("=====================");
+// 	    }
+
+// 	    var store=new ItemFileReadStore({url:"currency.json"});
+// 	    var req=store.fetch({
+// 	    	onItem:getItemValue
+// 	    });
+// 	    function getItemValue(item,req){
+// 	    	var value=store.getValue(item,"value");
+// 	    	select.options.push({label:value,value:value});
+// 	    }
+	    
+// 	    var select=new Select({
+// 	    	id:"select",
+// 	    	name:"select",
+// 	    	options:[{label:"USD",value:"USD"}]
+// 	    },"select");
+// 	    	console.log(select.options[0].selected);
+	    
+// 	    	select.options.push({label:"EUR",value:"EUR"});
+	    
+// 	    	options:[
+// 	    	       {
+// 	    	    	   label:"USD",
+// 	    	    	   value:"USD"
+// 	    	       },
+// 	    	       {
+// 	    	    	   label:"CNY",
+// 	    	    	   value:"CNY"
+// 	    	       }
+	    		
+// 	    	]
+
+// 	});
+// 	    var reg=/[0-9]+\.*[0-9]*/g,
+// 			reg2=/[^\.\d]/g,
+// 			reg3=/\B/g;
+// 		var str="$0.00";
+// 		console.log(str.match(reg));
+// 		console.log(str.match(reg2));
+// 		var array=str.match(reg2);
+// 		console.log(array);
+// 		var s="";
+// 		for(var i in array){
+// 			s+=array[i];
+// 			console.log(array[i]);
+// 		}
+// 			console.log(s);
+
+//arguments
+// function f(n) { g(n-1); }
+
+// function g(n) {
+//   console.log("before: " + g.arguments[0]);
+//   if(n>0) f(n);
+//   console.log("after: " + g.arguments[0]);
+// }
+
+// f(2);
+
+
+//call()
+// function Product(name, price) {
+//   this.name = name;
+//   this.price = price;
+
+//   if (price < 0)
+//     throw RangeError('Cannot create product "' + name + '" with a negative price');
+//   return this;
+// }
+
+// function Food(name, price) {
+//   Product.call(this, name, price);
+//   this.category = 'food';
+// }
+// Food.prototype = Object.create(Product.prototype);
+
+// function Toy(name, price) {
+//   Product.call(this, name, price);
+//   this.category = 'toy';
+// }
+// Toy.prototype = Object.create(Product.prototype);
+
+// var cheese = new Food('feta', 5);
+// var fun = new Toy('robot', 40);
+
+// console.log(cheese);
+// console.log(fun);
+
+
+// var animals = [
+//                {species: 'Lion', name: 'King'},
+//                {species: 'Whale', name: 'Fail'}
+//              ];
+
+//              for (var i = 0; i < animals.length; i++) {
+//                (function (i) { 
+//                  this.print = function () { 
+//                    console.log('#' + i  + ' ' + this.species + ': ' + this.name); 
+//                  } 
+//                  this.print();
+//                }).call(animals[i],i);
+//              }
+
+
+//apply()
+// Function.prototype.construct = function (aArgs) {
+//     var fConstructor = this, 
+//     	fNewConstr = function () {
+//     					fConstructor.apply(this, aArgs); 
+//     				};
+//     fNewConstr.prototype = fConstructor.prototype;
+//     return new fNewConstr();
+// };
+
+// function MyConstructor () {
+//     for (var nProp = 0; nProp < arguments.length; nProp++) {
+//         this["property" + nProp] = arguments[nProp];
+//     }
+// }
+
+// var myArray = [4, "Hello world!", false];
+// var myInstance = MyConstructor.construct(myArray);
+
+// console.log(myInstance.property1); // alerts "Hello world!"
+// console.log(myInstance instanceof MyConstructor); // alerts "true"
+// console.log(myInstance.constructor); // alerts "MyConstructor"
+
+
+
+// /* min/max number in an array */
+// var numbers = [5, 6, 2, 3, 7];
+
+// /* using Math.min/Math.max apply */
+// var max = Math.max.apply(null, numbers); /* This about equal to Math.max(numbers[0], ...) 
+//                                             or Math.max(5, 6, ..) */
+// var min = Math.min.apply(null, numbers);
+// console.log(min);
+// console.log(max);
+
+// /* vs. simple loop based algorithm */
+// max = -Infinity, min = +Infinity;
+
+// for (var i = 0; i < numbers.length; i++) {
+//   if (numbers[i] > max)
+//     max = numbers[i];
+//   if (numbers[i] < min) 
+//     min = numbers[i];
+// }
+// console.log(min);
+// console.log(max);
+
+
+
+// var arryAll = [];  
+// arryAll.push(1);  
+// arryAll.push(2);  
+// arryAll.push(3);  
+// arryAll.push(4);  
+  
+// arryAll.forEach(function(e){  
+// 	console.log(e);  
+// });  
+
+
+// console.log(max);
+
+
+// var i=null&&2||4;
+// alert(i)
+
+
+
+// var u=[
+// 			       {user1:"1",user2:"2.9",user3:"9.0",name:"Larry"},
+// 			       {user1:"145",user2:"2.459",user3:"9.450",name:"Larry2"}
+// 			      ];
+// 			var ts={};
+// 			ts.user1=ts.user2=ts.user3=0;
+// 			for(var i=u.length;i--;)
+// 			for(var k in ts){
+// 				console.log(u[i][k]);
+// 				ts[k]+=u[i][k];
+// 			}
+// 				console.log(ts);
+
+
+
+
+
+// require(["dojo/_base/declare","dojo/_base/lang"],function(declare,lang){
+// 	declare("acme.Base", null, {
+// 		constructor: function(properties){
+// 			// property configuration:
+// 			lang.mixin(this, properties);
+// 			console.log(this.quip);
+// 		},
+// 		quip: "I wasn't born yesterday, you know - I've seen movies.",
+// 	});
+		 
+// 		// create an instance of the class and configure it
+// 		var b = new acme.Base({quip: "That's what it does!" });
+		
+	
+		
+		
+// 		var flattened = lang.mixin(
+// 				{
+// 					name: "Frylock",
+// 					braces: true
+// 				},
+// 				{
+// 					name: "Carl Brutanananadilewski"
+// 				}
+// 			);
+				 
+// 			// will print "Carl Brutanananadilewski"
+// 			console.log(flattened.name);
+// 			// will print "true"
+// 			console.log(flattened.braces);
+			
+			
+// 			var foo = { bar: "baz" };
+// 			var thinger = lang.delegate(foo, { thud: "xyzzy"});
+// 			console.log(thinger.bar);	//baz 			deletgated to foo
+// 			console.log(foo.thud);		//undefined 	by definition
+// 			console.log(thinger.thud);	//xyzzy 		mixed in from props
+// 			foo.bar = "thonk";
+// 			console.log(thinger.bar);	//thonk  		still delegated to foo's bar
+
+// });
+
+
+var timeDecorator = function(){
+		return [
+			"<div dojoType='dijit.form.TimeTextBox' dojoAttachPoint='timeBox' class='gridxHasGridCellValue' style='width: 100%;'></div>"
+		].join('');
+	};
+	
+	console.log(typeof timeDecorator());
+</script>
+</head>
+<body class="claro">
+	<select id="select"></select>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Drop-down Selects with Dgrid</title>
+	<link rel="stylesheet" href="../dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../dgrid/css/dgrid.css">
+	<link rel="stylesheet" href="../dgrid/css/skins/claro.css">
+	<link rel="stylesheet" href="../my/Select.css">
+	<style>
+		#select {
+			width: 200px;
+		}
+	</style>
+	<script>
+		var dojoConfig;
+		(function(){
+			console.log(location.pathname);
+			var baseUrl = location.pathname.replace(/\/[^/]+$/, "/"),
+				dgridUrl = baseUrl + "../";
+			console.log(baseUrl);
+			dojoConfig = {
+				async: 1,
+				cacheBust: "1.9.3-0.3.14",
+				// Load dgrid and its dependencies from a local copy.
+				// If we were loading everything locally, this would not
+				// be necessary, since Dojo would automatically pick up
+				// dgrid, xstyle, and put-selector as siblings of the dojo folder.
+				packages: [
+					{ name: "dgrid", location: dgridUrl + "dgrid" },
+					{ name: "xstyle", location: dgridUrl + "xstyle" },
+					{ name: "put-selector", location: dgridUrl + "put-selector" },
+					// Also load the widget from a local module
+					{ name: "my", location: dgridUrl + "my" }
+				]
+			};
+		}());
+	</script>
+	<script src="../dojo/dojo.js"></script>
+	<script>
+		var select;
+		require([
+			"my/Select",
+			"dojo/dom",
+			"dojo/store/Memory",
+			"dojo/domReady!"
+		], function(Select, dom, Memory){
+			select = new Select({
+				store: new Memory({
+					identifier: "id",
+					data: [
+						{ id: 0, name: "One", value: 1 },
+						{ id: 1, name: "Two", value: 2 },
+						{ id: 2, name: "Three", value: 3 },
+						{ id: 3, name: "Four", value: 4 }
+					]
+				})
+			}, "select");
+			select.startup();
+		});
+	</script>
+</head>
+<body class="claro">
+
+	
+	<div id="select"></div>
+	
+</body>
+</html>

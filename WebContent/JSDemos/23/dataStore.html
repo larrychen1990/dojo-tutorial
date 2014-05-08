@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+<div style="behavior:url(#default#userData)" id="dataStore"></div>
+<script type="text/javascript">
+/**
+	var dataStore=document.getElementById("dataStore");
+	dataStore.setAttribute("name","Larry");
+	dataStore.setAttribute("book","JS");
+	dataStore.save("bookInfo");
+	
+	dataStore.load("bookInfo");
+	alert(dataStore.getAttribute("name"));
+	alert(dataStore.getAttribute("book"));
+	
+	dataStore.removeAttribute("name");
+	dataStore.removeAttribute("book");
+	dataStore.save("bookInfo");
+	dataStore.load("bookInfo");
+	alert(dataStore.getAttribute("name"));
+	alert(dataStore.getAttribute("book"));
+	
+ //sessionStorage.begin();
+ sessionStorage.setItem("name","Larry");
+ sessionStorage.book="JS";
+// sessionStorage.commit();
+ 
+ var name=sessionStorage.getItem("name");
+ var book=sessionStorage.book;
+ for ( var i = 0; i < sessionStorage.length; i++) {
+	var key = sessionStorage.key(i);
+	var value=sessionStorage.getItem(key);
+	alert(key+"="+value);
+ }
+ delete sessionStorage.name;
+ sessionStorage.removeItem("book");
+	
+ globalStorage["www.wrox.com"].name="Larry";
+ alert(globalStorage["www.wrox.com"].name);
+ 
+ */
+ localStorage.setItem("name","Larry");
+ localStorage.book="JS";
+ 
+ var name=localStorage.getItem("name");
+ var book=localStorage.book;
+ //alert(name);
+// alert(book);
+alert(typeof globalStorage);
+alert(typeof localStorage);
+ 
+ 
+ 
+</script>
+
+</body>
+</html>

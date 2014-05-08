@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+ <title>Dojo ComboBox Widget Test</title>
+ <style>
+  @import "dojo/resources/dojo.css";
+ </style>
+ <script type="text/javascript" src="dojo/dojo.js"
+  djConfig="isDebug: false, parseOnLoad: true"></script>
+
+ <script type="text/javascript">
+ require([
+  	 	"dojo/data/ItemFileReadStore",
+  	 	"dojo/domReady!",
+  	 ],function(ItemFileReadStore){
+  	    //json data  
+  	    var storeData = {   
+  	        'identifier': 'name',   
+  	        'label': 'name',   
+  	        'items': [   
+  	            {
+  	            	'name':'Africa', 
+  	            	'type':'continent',   
+  	            	'children':[
+  	            	            {'_reference':'Egypt'}, 
+  	            	            {'_reference':'Kenya'}, 
+  	            	            {'_reference':'Sudan'}
+  	            	           ] 
+  	            },   
+  	            {'name':'Egypt', 'type':'country' },   
+  	            {'name':'Kenya', 'type':'country', 'type':'city' },   
+  	            {'name':'Sudan', 'type':'country', 'type':'city' },   
+  	            {'name':'Mombasa', 'type':'city' }   
+  	        ]   
+  	    };   
+  	    var itemStore = new ItemFileReadStore({data : storeData});   
+  	    var request = itemStore.fetch({   
+  	        onItem : testRef   
+  	    });   
+  	    function testRef (item, request) {   
+  	        if (itemStore.getValue(item, "name") == "Africa") {   
+  	            var item = itemStore.getValue(item, "children");   
+  	            console.log(itemStore.getValue(item, "name") + ":" + itemStore.getValue(item, "type"));      
+  	            //Egypt:country   
+  	        }   
+  	    } 
+  	    
+  	    
+  	    var store=new ItemFileReadStore({url:"city_en.json"});
+  	    var req=store.fetch({
+  	    	onItem:getVal
+  	    });
+  	    function getVal(item,req){
+  	    	console.log("=====================");
+  	    	console.log(store.getValue(item,"abbreviation"));
+  	    	console.log(store.getValue(item,"name"));
+  	    	console.log(store.getValue(item,"type"));
+  	    	console.log("=====================");
+  	    }
+  	    
+  	    
+  	    
+  	    
+  	});
+  
+ </script>
+</head>
+<body>
+
+</body>
+</html>
+
